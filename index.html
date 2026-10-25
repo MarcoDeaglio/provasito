@@ -1,1469 +1,591 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DB FEDERALE - MOBILE</title>
-  <style>
-    :root {
-      --bg-color: #0a0d12;
-      --card-bg: #111622;
-      --text-color: #00ff66;
-      --accent-color: #00bfff;
-      --alert-color: #ff3333;
-      --border-color: #00ff6644;
-      --font-family: 'Courier New', Courier, monospace;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: var(--font-family);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      background-image: radial-gradient(#00ff6611 1px, transparent 0);
-      background-size: 15px 15px;
-    }
-
-    body.hacked-mode {
-      --text-color: #ff3333;
-      --border-color: #ff333366;
-      background-image: radial-gradient(#ff333311 1px, transparent 0);
-    }
-
-    /* TEMA SPECIALE JURASSIC PARK */
-    body.dino-mode {
-      --bg-color: #0b140c;
-      --card-bg: #111e13;
-      --text-color: #ffd700;
-      --accent-color: #ff8c00;
-      --border-color: #ffd70044;
-      background-image: radial-gradient(#ffd70011 1px, transparent 0);
-    }
-
-    body.dino-mode .container {
-      border-color: var(--text-color);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 440px;
-      background: var(--card-bg);
-      border: 2px solid var(--text-color);
-      box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .header {
-      text-align: center;
-      border-bottom: 2px solid var(--text-color);
-      padding-bottom: 12px;
-      margin-bottom: 18px;
-    }
-
-    .header h1 {
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .header p {
-      font-size: 1rem;
-      color: var(--accent-color);
-      margin-top: 6px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* STILE LOGO FEDERALE GRANDE (LOGIN) */
-    .logo-login-wrapper {
-      position: relative;
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 18px auto;
-    }
-
-    .logo-login {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--text-color);
-      background: #000;
-      box-shadow: 0 0 12px var(--text-color), inset 0 0 8px var(--text-color);
-      display: block;
-    }
-
-    /* STILE LOGO FEDERALE PICCOLO (DASHBOARD) */
-    .logo-small {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent-color);
-      background: #000;
-      box-shadow: 0 0 6px var(--accent-color);
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1.15rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 16px;
-      background: #000;
-      border: 2px solid var(--text-color);
-      color: var(--text-color);
-      font-family: var(--font-family);
-      font-size: 1.25rem;
-      border-radius: 6px;
-      outline: none;
-    }
-
-    button {
-      width: 100%;
-      padding: 16px;
-      background: var(--text-color);
-      color: #000;
-      border: none;
-      font-family: var(--font-family);
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 6px;
-      transition: background 0.2s;
-    }
-
-    button:active {
-      background: var(--accent-color);
-    }
-
-    .error-msg {
-      color: var(--alert-color);
-      margin-top: 14px;
-      text-align: center;
-      font-size: 1.1rem;
-    }
-
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.05rem;
-      margin-bottom: 18px;
-      border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 10px;
-    }
-
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* PULSANTE AIUTO IN ALTO A SINISTRA */
-    .help-btn {
-      background: transparent;
-      color: var(--accent-color);
-      border: 1px solid var(--accent-color);
-      padding: 5px 8px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      font-family: var(--font-family);
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .help-btn:active {
-      background: var(--accent-color);
-      color: #000;
-    }
-
-    .search-section label {
-      font-size: 1.15rem;
-    }
-
-    .search-box {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-      margin-bottom: 18px;
-    }
-
-    .result-box {
-      background: #000;
-      border: 1px solid var(--border-color);
-      padding: 16px;
-      max-height: 420px;
-      overflow-y: auto;
-      border-radius: 6px;
-      font-size: 1.15rem;
-    }
-
-    .result-title {
-      color: var(--accent-color);
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-    }
-
-    /* STILI CRUCIVERBA */
-    .crossword-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 2px;
-      background: var(--border-color);
-      border: 2px solid var(--text-color);
-      margin: 12px 0;
-      padding: 2px;
-    }
-
-    .cw-cell {
-      background: #000;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: var(--text-color);
-      font-weight: bold;
-    }
-
-    .cw-cell.blocked {
-      background: repeating-linear-gradient(
-        45deg,
-        #111,
-        #111 4px,
-        #333 4px,
-        #333 8px
-      );
-    }
-
-    .clue-section {
-      margin-top: 10px;
-      font-size: 0.85rem;
-    }
-
-    .clue-title {
-      color: var(--accent-color);
-      font-weight: bold;
-      margin-bottom: 4px;
-      border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 2px;
-    }
-
-    .clue-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
-
-    .clue-box {
-      border: 1px solid var(--text-color);
-      padding: 2px 5px;
-      font-size: 0.8rem;
-      background: rgba(0, 255, 102, 0.05);
-    }
-
-    /* VIDEO DI RINTRACCIAMENTO */
-    .scan-video-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 5px 0;
-    }
-
-    .scan-video {
-      width: 100%;
-      max-height: 180px;
-      object-fit: contain;
-      border: 2px solid var(--accent-color);
-      border-radius: 4px;
-      background: #000;
-    }
-
-    .scan-text {
-      margin-top: 8px;
-      font-size: 0.95rem;
-      color: var(--accent-color);
-      text-align: center;
-      letter-spacing: 1px;
-      animation: blink 0.5s infinite alternate;
-    }
-
-    @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
-
-    /* CONTENITORE IMMAGINE LABIRINTO/MAPPA (STILE APP) */
-    .map-image-container {
-      margin-top: 14px;
-      position: relative;
-      border: 2px solid var(--text-color);
-      border-radius: 6px;
-      overflow: hidden;
-      background: #000;
-      width: 100%;
-      height: 260px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px;
-    }
-
-    .map-image {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .map-overlay-tag {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: rgba(0, 0, 0, 0.85);
-      color: var(--text-color);
-      padding: 4px 8px;
-      font-size: 0.8rem;
-      border: 1px solid var(--text-color);
-      border-radius: 3px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      z-index: 2;
-    }
-
-    .enigmi-grid-scroll {
-      max-height: 340px;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      padding-right: 4px;
-    }
-
-    .enigma-btn {
-      background: rgba(0, 191, 255, 0.1);
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 12px 0;
-      font-size: 1rem;
-      font-family: var(--font-family);
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .enigma-btn:active {
-      background: var(--accent-color);
-      color: #000;
-    }
-
-    .dino-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .dino-btn {
-      background: rgba(255, 215, 0, 0.1);
-      border: 2px solid var(--text-color);
-      color: var(--text-color);
-      text-align: left;
-      padding: 12px;
-      font-size: 1.05rem;
-      font-family: var(--font-family);
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .dino-btn:active {
-      background: var(--text-color);
-      color: #000;
-    }
-
-    .back-dino-btn {
-      background: var(--alert-color) !important;
-      color: #fff !important;
-      border: none !important;
-      margin-top: 12px;
-    }
-
-    /* STILI CALCOLATRICE DINOSAURI CON AUTO-ADATTAMENTO IMMAGINI */
-    .dino-calc-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .dino-screen-label {
-      font-size: 0.8rem;
-      color: var(--accent-color);
-      margin-bottom: -4px;
-    }
-
-    .dino-screen {
-      width: 100%;
-      padding: 10px;
-      background: #000;
-      border: 1px solid var(--text-color);
-      color: var(--text-color);
-      font-family: var(--font-family);
-      font-size: 1.1rem;
-      border-radius: 4px;
-      min-height: 58px;
-      word-break: break-all;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    /* Miniatura auto-adattata nell'input */
-    .dino-screen img.calc-mini-img {
-      width: 36px;
-      height: 36px;
-      max-width: 100%;
-      object-fit: contain;
-      border-radius: 3px;
-      border: 1px solid var(--text-color);
-      background: #000;
-      vertical-align: middle;
-    }
-
-    .dino-output-screen {
-      width: 100%;
-      padding: 12px;
-      background: #000;
-      border: 2px solid var(--accent-color);
-      color: var(--accent-color);
-      font-family: var(--font-family);
-      font-size: 1.1rem;
-      border-radius: 6px;
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-    }
-
-    .dino-calc-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    .dino-calc-btn {
-      background: rgba(255, 215, 0, 0.08);
-      border: 1px solid var(--text-color);
-      color: var(--text-color);
-      padding: 6px;
-      font-size: 0.7rem;
-      font-family: var(--font-family);
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-    }
-
-    /* Immagine auto-adattata sul pulsante */
-    .dino-calc-btn img.calc-btn-img {
-      width: 42px;
-      height: 42px;
-      max-width: 100%;
-      object-fit: contain;
-      border-radius: 4px;
-      border: 1px solid var(--text-color);
-      background: #000;
-    }
-
-    .dino-calc-btn:active {
-      background: var(--text-color);
-      color: #000;
-    }
-
-    .dino-operators-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-
-    .dino-op-btn {
-      background: rgba(0, 191, 255, 0.1);
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 10px;
-      font-size: 1.1rem;
-      font-family: var(--font-family);
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .dino-op-btn:active {
-      background: var(--accent-color);
-      color: #000;
-    }
-
-    .dino-calc-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dino-calc-actions button {
-      flex: 1;
-      padding: 10px;
-      font-size: 0.85rem;
-    }
-
-    /* CHAT IA MOBILE */
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 10px;
-    }
-
-    .chat-history {
-      background: #000;
-      border: 2px solid var(--alert-color);
-      padding: 12px;
-      max-height: 220px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      border-radius: 6px;
-    }
-
-    .chat-msg {
-      font-size: 1.1rem;
-      line-height: 1.4;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      word-break: break-word;
-    }
-
-    .chat-msg-tag {
-      font-weight: bold;
-      font-size: 1.15rem;
-      white-space: nowrap;
-    }
-
-    .chat-msg-text {
-      flex: 1;
-    }
-
-    .chat-msg.ia {
-      color: var(--alert-color);
-    }
-
-    .chat-msg.team {
-      color: var(--accent-color);
-    }
-
-    .chat-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .chat-btn {
-      background: transparent;
-      border: 2px solid var(--alert-color);
-      color: var(--alert-color);
-      text-align: left;
-      padding: 12px;
-      font-size: 1rem;
-      border-radius: 6px;
-      line-height: 1.35;
-      font-family: var(--font-family);
-      font-weight: bold;
-    }
-
-    .chat-btn:active {
-      background: var(--alert-color);
-      color: #000;
-    }
-
-    .restore-btn {
-      background: var(--text-color) !important;
-      color: #000 !important;
-      border: none !important;
-      margin-top: 4px;
-      font-size: 1.1rem !important;
-    }
-
-    .logout-btn {
-      background: transparent;
-      color: var(--alert-color);
-      border: 1px solid var(--alert-color);
-      width: auto;
-      padding: 5px 10px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <div class="header">
-      <h1 id="sys-title">DB-FEDERALE</h1>
-      <p id="sys-subtitle">SISTEMA LOCALIZZAZIONE MOBILE</p>
-    </div>
-
-    <!-- PANNELLO LOGIN -->
-    <div id="login-panel">
-      <div class="logo-login-wrapper">
-        <img src="Immagini/logo.png" alt="Logo Federale" class="logo-login" onerror="this.style.display='none'">
-      </div>
-      
-      <form id="login-form">
-        <div class="form-group">
-          <label for="username">ID SQUADRA:</label>
-          <input type="text" id="username" required autocomplete="off">
-        </div>
-        <div class="form-group">
-          <label for="password">CODICE ACCESSO:</label>
-          <input type="password" id="password" required>
-        </div>
-        <button type="submit">ENTRA</button>
-        <div id="login-error" class="error-msg hidden">ACCESSO NEGATO</div>
-      </form>
-    </div>
-
-    <!-- PANNELLO DASHBOARD -->
-    <div id="dashboard-panel" class="hidden">
-      <div class="status-bar">
-        <div class="status-left">
-          <button class="help-btn" onclick="apriAiutoHome()">AIUTO</button>
-          <img src="Immagini/logo.png" alt="Logo Federale" class="logo-small" onerror="this.style.display='none'">
-        </div>
-        <div class="status-right">
-          <span style="font-size: 0.95rem;"><strong id="user-display" style="color:var(--accent-color)">-</strong></span>
-          <button class="logout-btn" onclick="logout()">LOGOUT</button>
-        </div>
-      </div>
-
-      <div class="search-section" id="search-section">
-        <label for="coord-search">INSERISCI COORDINATA:</label>
-        <div class="search-box">
-          <input type="text" id="coord-search" placeholder="Es: 714-652-398" maxlength="11" autocomplete="off">
-          <button id="btn-search" onclick="ricercaCoordinata()">CERCA</button>
-        </div>
-      </div>
-
-      <div class="result-box" id="main-result-box">
-        <div class="result-title" id="result-title">RISULTATO:</div>
-        <div id="result-content">In attesa di input...</div>
-      </div>
-    </div>
-
-    <!-- NUOVA HOME SEZIONE AIUTO / 27 ENIGMI -->
-    <div id="help-panel" class="hidden">
-      <div class="status-bar">
-        <span style="color: var(--accent-color); font-weight: bold;">ARCHIVIO ENIGMI (27)</span>
-        <button class="logout-btn" onclick="chiudiAiutoHome()">TORNA AL DB</button>
-      </div>
-
-      <div class="result-box">
-        <div class="result-title">SELEZIONA ENIGMA:</div>
-        <div id="help-content">
-          <!-- Generato via JavaScript -->
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    /* CONFIGURAZIONE SQUADRE E COORDINATE */
-    const CREDENZIALI = {
-      "Marco": "pass123",
-      "squadra2": "pass456"
-    };
-
-    const DATABASE_COORDINATE = {
-      "Marco": {
-        "714-652-999": {
-          tipo: "cmd_dino"
-        },
-        "714-652-398": {
-          tipo: "cmd_atto_1",
-          luogo: "Campo da Basket",
-          immagine: "Immagini/basket.png",
-          sbloccato: false
-        },
-        "123-456-789": {
-          tipo: "cmd_atto_1",
-          luogo: "Settore Segreto: Laboratorio Sotterraneo",
-          sbloccato: false
-        }
-      },
-      "squadra2": {
-        "714-652-999": {
-          tipo: "cmd_dino"
-        },
-        "123-456-789": {
-          tipo: "TEXT",
-          luogo: "Campo da Calcio",
-          immagine: "Immagini/campo_calcio.jpg"
-        },
-        "999-888-777": {
-          tipo: "cmd_atto_1",
-          luogo: "Settore Segreto: Antenna di Trasmissione",
-          sbloccato: false
-        }
-      }
-    };
-
-    /* DATABASE DEI 27 ENIGMI CON PASSWORD SPECIFICA */
-    const DATABASE_ENIGMI = {};
-    for (let i = 1; i <= 27; i++) {
-      DATABASE_ENIGMI[i] = {
-        password: "key" + i,
-        titolo: "Enigma N° " + i,
-        indizio: "Questo è l'indizio riservato per superare l'enigma numero " + i + ". Analizzate bene la zona."
-      };
-    }
-
-    /* DATABASE DEI DINOSAURI (SCHEDE CLASSICHE) */
-    const DATABASE_DINOSAURI = {
-      "t-rex": {
-        nome: "Tyrannosaurus Rex",
-        pericolo: "Estremo - Cacciatore Alpha",
-        descrizione: "Il predatore dominante del Cretaceo. Dotato di un morso devastante e vista basata sul movimento.",
-        immagine: "Immagini/trex.jfif"
-      },
-      "velociraptor": {
-        nome: "Velociraptor",
-        pericolo: "Alto - Intelligente e Letale in branco",
-        descrizione: "Piccolo ma estremamente astuto, caccia in coordinazione con i suoi simili.",
-        immagine: "Immagini/raptor.jfif"
-      },
-      "triceratops": {
-        nome: "Triceratops",
-        pericolo: "Medio - Erbivoro Territoriale",
-        descrizione: "Provvisto di tre corna e uno scudo osseo massiccio. Può caricare se provocato.",
-        immagine: "Immagini/triceratops.jfif"
-      },
-      "brachiosaurus": {
-        nome: "Brachiosaurus (Collo Lungo)",
-        pericolo: "Basso - Enorme Erbivoro Pacifico",
-        descrizione: "Uno dei più grandi animali mai vissuti sulla Terra, capace di raggiungere le cime degli alberi più alti con il suo lunghissimo collo.",
-        immagine: "Immagini/brachiosaurus.jfif"
-      }
-    };
-
-    /* 9 DINOSAURI ASSOCIATI A VALORI DA 1 A 9 CON NOMI E IMMAGINI DEDICATE */
-    const LISTA_DINOSAURI_CALC = [
-      { id: 1, nome: "T-Rex", valore: 1, immagine: "Immagini/dino1.png" },
-      { id: 2, nome: "Raptor", valore: 2, immagine: "Immagini/dino2.png" },
-      { id: 3, nome: "Triceratops", valore: 3, immagine: "Immagini/dino3.png" },
-      { id: 4, nome: "Brachiosaurus", valore: 4, immagine: "Immagini/dino4.png" },
-      { id: 5, nome: "Pterodattilo", valore: 5, immagine: "Immagini/dino5.png" },
-      { id: 6, nome: "Spinosaurus", valore: 6, immagine: "Immagini/dino6.png" },
-      { id: 7, nome: "Stegosaurus", valore: 7, immagine: "Immagini/dino7.png" },
-      { id: 8, nome: "Ankylosaurus", valore: 8, immagine: "Immagini/dino8.png" },
-      { id: 9, nome: "Velociraptor", valore: 9, immagine: "Immagini/dino9.png" }
-    ];
-
-    const IA_atto_1 = {
-      "start": {
-        messaggio: "ATTENZIONE OPERATORI, ho rilevato un nuovo accesso",
-        opzioni: [
-          { testo: "Chi sei?", prossimoNodo: "nodo_chi_sei" }
-        ]
-      },
-      "nodo_chi_sei": {
-        messaggio: "Sono IA-SYSTEM del campo estivo, sono stata installata su tutti i dispositivi elettronici del campo",
-        opzioni: [
-          { testo: "Cosa vuoi da noi?", prossimoNodo: "nodo_cosaVuoi" }
-        ]
-      },
-      "nodo_cosaVuoi": {
-        messaggio: "Ho saputo, che voi, {SQUADRA}, avete avuto il compito di cercare un hard-disk",
-        opzioni: [
-          { testo: "Aspetta, come fai a saperlo?, cosa c'è dentro di così prezioso", prossimoNodo: "hard_disk" }
-        ]
-      },
-      "hard_disk": {
-        messaggio: "Io so sempre tutto, sono in tutti i dispositivi del campo, all'interno c'è una chiave di licenza per me",
-        opzioni: [
-          { testo: "Cosa fa questa chiave di licenza", prossimoNodo: "ChiaveLicenza" }
-        ]
-      },
-      "ChiaveLicenza": {
-        messaggio: "È una licenza standard per avere IA con uno spazio comune, uno spazio dove tutti possono usarmi senza limitazioni, quindi se la trovate portatela da Marco",
-        opzioni: [
-          { testo: "Ok, va bene come possiamo usarti?", prossimoNodo: "chiamareIA" }
-        ]
-      },
-      "chiamareIA": {
-        messaggio: "Non siete voi a decidere, sono io che mi farò viva, perché c'è un sistema che mi sta cacciando",
-        opzioni: []
-      }
-    };
-
-    let squadraAutenticata = null;
-    let coordinataCorrenteHacking = null;
-
-    /* SCRIPT AUTOMATICO PER INSERIRE I TRATTINI NELLE COORDINATE (XXX-XXX-XXX) */
-    const coordInput = document.getElementById('coord-search');
-    coordInput.addEventListener('input', function (e) {
-      let val = this.value.replace(/[^0-9A-Za-z]/g, '').toUpperCase();
-      let formatted = '';
-      
-      if (val.length > 0) {
-        formatted += val.substring(0, 3);
-      }
-      if (val.length > 3) {
-        formatted += '-' + val.substring(3, 6);
-      }
-      if (val.length > 6) {
-        formatted += '-' + val.substring(6, 9);
-      }
-      
-      this.value = formatted;
-    });
-
-    document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value.trim();
-
-      if (CREDENZIALI[user] && CREDENZIALI[user] === pass) {
-        squadraAutenticata = user;
-        document.getElementById('login-error').classList.add('hidden');
-        mostraDashboard();
-      } else {
-        document.getElementById('login-error').classList.remove('hidden');
-      }
-    });
-
-    function mostraDashboard() {
-      document.getElementById('login-panel').classList.add('hidden');
-      document.getElementById('help-panel').classList.add('hidden');
-      document.getElementById('dashboard-panel').classList.remove('hidden');
-      document.getElementById('user-display').textContent = squadraAutenticata.toUpperCase();
-      document.getElementById('coord-search').value = '';
-      document.getElementById('result-content').innerHTML = "In attesa di input...";
-    }
-
-    /* GESTIONE NUOVA HOME AIUTO / 27 ENIGMI */
-    function apriAiutoHome() {
-      document.getElementById('dashboard-panel').classList.add('hidden');
-      document.getElementById('help-panel').classList.remove('hidden');
-      mostraGrigliaEnigmi();
-    }
-
-    function mostraGrigliaEnigmi() {
-      const helpContent = document.getElementById('help-content');
-      let gridHtml = '<p style="color:var(--accent-color); font-size:0.95rem; margin-bottom:10px;">Inserisci la password per accedere al rispettivo enigma:</p>';
-      gridHtml += '<div class="enigmi-grid-scroll">';
-      
-      for (let i = 1; i <= 27; i++) {
-        gridHtml += `<button class="enigma-btn" onclick="verificaPasswordEnigma(${i})">#${i}</button>`;
-      }
-      gridHtml += '</div>';
-
-      helpContent.innerHTML = gridHtml;
-    }
-
-    function verificaPasswordEnigma(numero) {
-      const enigma = DATABASE_ENIGMI[numero];
-      const inserita = prompt(`Inserisci la password per sbloccare l'Enigma #${numero}:`);
-
-      if (inserita === null) return;
-
-      if (inserita.trim() === enigma.password) {
-        if (numero === 1) {
-          mostraMenuEnigma1();
-        } else {
-          mostraSchedaEnigmaGenerica(numero);
-        }
-      } else {
-        alert("Password errata! Accesso negato.");
-      }
-    }
-
-    /* MENU DEDICATO PER L'ENIGMA 1 CON I 3 PULSANTI */
-    function mostraMenuEnigma1() {
-      const helpContent = document.getElementById('help-content');
-
-      helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:10px;">[ENIGMA #1 - SELEZIONE MODULO]</p>
-        <p style="font-size: 0.9rem; margin-bottom: 14px; color: #ccc;">Seleziona la tipologia di enigma desiderata:</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Grandi()">> Enigma grandi</button>
-          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Piccoli()">> Enigma piccoli</button>
-          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Finale()">> Enigma finale</button>
-        </div>
-
-        <button class="dino-btn back-dino-btn" style="margin-top:16px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
-      `;
-    }
-
-    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (GRANDI) */
-    function mostraSchedaEnigma1Grandi() {
-      const helpContent = document.getElementById('help-content');
-
-      helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA GRANDI]</p>
-        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
-          Semplice cruciverba dove si deve capire dove vanno ogni numero, le celle con il motivo a linee nere non bisogna scrivere niente sopra. Suggerimento: iniziate dai due da 8 quadretti.
-        </p>
-
-        <!-- Schema Cruciverba Grafico (8x8) VUOTO -->
-        <div class="crossword-grid">
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
-        </div>
-
-        <!-- Numeri da posizionare -->
-        <div class="clue-section">
-          <div class="clue-title">ORIZZONTALI (NUMERI DA INSERIRE)</div>
-          <div class="clue-row">
-            <span class="clue-box">186</span>
-            <span class="clue-box">542</span>
-            <span class="clue-box">27543</span>
-            <span class="clue-box">72147598</span>
-          </div>
-          <div class="clue-row">
-            <span class="clue-box">736</span>
-            <span class="clue-box">915</span>
-            <span class="clue-box">548127</span>
-            <span class="clue-box">7638</span>
-            <span class="clue-box">1341</span>
-          </div>
-          <div class="clue-row">
-            <span class="clue-box">1926</span>
-            <span class="clue-box">2265</span>
-          </div>
-        </div>
-
-        <div class="clue-section" style="margin-top: 8px;">
-          <div class="clue-title">VERTICALI (NUMERI DA INSERIRE)</div>
-          <div class="clue-row">
-            <span class="clue-box">442</span>
-            <span class="clue-box">651</span>
-            <span class="clue-box">648</span>
-            <span class="clue-box">2453</span>
-            <span class="clue-box">2595</span>
-            <span class="clue-box">9675</span>
-            <span class="clue-box">872643</span>
-            <span class="clue-box">56371987</span>
-            <span class="clue-box">12735187</span>
-            <span class="clue-box">143</span>
-            <span class="clue-box">321</span>
-            <span class="clue-box">1372</span>
-          </div>
-        </div>
-
-        <!-- SEZIONE SOLUZIONE -->
-        <div style="margin-top: 18px; border-top: 2px dashed var(--accent-color); padding-top: 10px;">
-          <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 6px;">[SEZIONE SOLUZIONE]</p>
-          
-          <div class="crossword-grid">
-            <div class="cw-cell">1</div><div class="cw-cell">8</div><div class="cw-cell">6</div><div class="cw-cell blocked"></div><div class="cw-cell">1</div><div class="cw-cell">9</div><div class="cw-cell">2</div><div class="cw-cell">6</div>
-            <div class="cw-cell">2</div><div class="cw-cell">7</div><div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">3</div><div class="cw-cell blocked"></div><div class="cw-cell">5</div><div class="cw-cell">4</div>
-            <div class="cw-cell">7</div><div class="cw-cell">2</div><div class="cw-cell">1</div><div class="cw-cell">4</div><div class="cw-cell">7</div><div class="cw-cell">5</div><div class="cw-cell">9</div><div class="cw-cell">8</div>
-            <div class="cw-cell">3</div><div class="cw-cell">6</div><div class="cw-cell blocked"></div><div class="cw-cell">2</div><div class="cw-cell">2</div><div class="cw-cell">6</div><div class="cw-cell">5</div><div class="cw-cell blocked"></div>
-            <div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">2</div><div class="cw-cell blocked"></div><div class="cw-cell blocked"></div><div class="cw-cell">3</div><div class="cw-cell blocked"></div><div class="cw-cell">9</div>
-            <div class="cw-cell">1</div><div class="cw-cell">3</div><div class="cw-cell">4</div><div class="cw-cell">1</div><div class="cw-cell blocked"></div><div class="cw-cell">7</div><div class="cw-cell">3</div><div class="cw-cell">6</div>
-            <div class="cw-cell">8</div><div class="cw-cell blocked"></div><div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">8</div><div class="cw-cell">1</div><div class="cw-cell">2</div><div class="cw-cell">7</div>
-            <div class="cw-cell">7</div><div class="cw-cell">6</div><div class="cw-cell">3</div><div class="cw-cell">8</div><div class="cw-cell blocked"></div><div class="cw-cell">9</div><div class="cw-cell">1</div><div class="cw-cell">5</div>
-          </div>
-        </div>
-
-        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
-      `;
-    }
-
-    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (PICCOLI) - LABIRINTO E SOLUZIONE SOTTO */
-    function mostraSchedaEnigma1Piccoli() {
-      const helpContent = document.getElementById('help-content');
-
-      helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA PICCOLI]</p>
-        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
-          Analizza il tracciato e trova la via d'uscita dall'INIZIO alla FINE.
-        </p>
-
-        <!-- Contenitore immagine Labirinto -->
-        <div class="map-image-container">
-          <img src="Immagini/labirinto.png" alt="Labirinto Enigma Piccoli" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%2300ff66\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>LABIRINTO.PNG</text></svg>'">
-        </div>
-
-        <!-- SEZIONE SOLUZIONE (Immagine Soluzione Sotto) -->
-        <div style="margin-top: 18px; border-top: 2px dashed var(--accent-color); padding-top: 10px;">
-          <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 6px;">[SEZIONE SOLUZIONE]</p>
-          
-          <div class="map-image-container">
-            <img src="Immagini/soluzione_labirinto.png" alt="Soluzione Labirinto" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%2300bfff\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SOLUZIONE_LABIRINTO.PNG</text></svg>'">
-          </div>
-        </div>
-
-        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
-      `;
-    }
-
-    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (FINALE) */
-    function mostraSchedaEnigma1Finale() {
-      const helpContent = document.getElementById('help-content');
-
-      helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA FINALE]</p>
-        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
-          Una volta risolto l'enigma dei grandi e dei piccoli, dovete immaginarvi di mettere in sovraimpressione l'enigma dei piccoli e grazie ai quadrati verdi potete trovare la soluzione. L'ordine sta al percorso.
-        </p>
-
-        <!-- Contenitore immagine Soluzione Finale -->
-        <div class="map-image-container">
-        <img src="Immagini/soluzione_finale.png" alt="Soluzione Finale" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SOLUZIONE_FINALE.PNG</text></svg>'">
-        </div>
-
-        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
-      `;
-    }
-
-    /* SCHEDA STANDARD PER GLI ALTRI ENIGMI (DA 2 A 27) */
-    function mostraSchedaEnigmaGenerica(numero) {
-      const enigma = DATABASE_ENIGMI[numero];
-      const helpContent = document.getElementById('help-content');
-
-      helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[ACCESSO RIUSCITO - ENIGMA #${numero}]</p>
-        <p style="margin-top:6px;">> <strong>Titolo:</strong> ${enigma.titolo}</p>
-        <p style="margin-top:6px;">> <strong>Indizio:</strong> ${enigma.indizio}</p>
-        <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
-      `;
-    }
-
-    function chiudiAiutoHome() {
-      document.getElementById('help-panel').classList.add('hidden');
-      document.getElementById('dashboard-panel').classList.remove('hidden');
-    }
-
-    function ricercaCoordinata() {
-      const inputCoord = document.getElementById('coord-search').value.trim().toUpperCase();
-      const resultContent = document.getElementById('result-content');
-      const btnSearch = document.getElementById('btn-search');
-
-      if (!inputCoord) {
-        resultContent.innerHTML = "<span style='color:var(--alert-color)'>Inserire una coordinata.</span>";
-        return;
-      }
-
-      btnSearch.disabled = true;
-
-      resultContent.innerHTML = `
-        <div class="scan-video-container">
-          <video id="video-rintraccia" class="scan-video" autoplay muted playsinline webkit-playsinline>
-            <source src="Immagini/rintraccia.mp4" type="video/mp4">
-          </video>
-          <div class="scan-text">RINTRACCIAMENTO SEGNALE...</div>
-        </div>
-      `;
-
-      const videoElement = document.getElementById('video-rintraccia');
-      if (videoElement) {
-        videoElement.play().catch(e => console.log("Autoplay bloccato:", e));
-      }
-
-      let completato = false;
-      const mostraRisultato = () => {
-        if (completato) return;
-        completato = true;
-
-        btnSearch.disabled = false;
-        const datiSquadra = DATABASE_COORDINATE[squadraAutenticata];
-
-        if (datiSquadra && datiSquadra[inputCoord]) {
-          const info = datiSquadra[inputCoord];
-
-          if (info.tipo === "cmd_atto_1" && !info.sbloccato) {
-            coordinataCorrenteHacking = inputCoord;
-            avviaEventoHacking();
-          } else if (info.tipo === "cmd_dino") {
-            avviaEventoDino();
-          } else {
-            const posizioneFinal = info.luogo;
-            
-            let htmlImmagine = "";
-            if (info.immagine) {
-              htmlImmagine = `
-                <div class="map-image-container">
-                  <div class="map-overlay-tag">TARGET AGGANCIATO</div>
-                  <img src="${info.immagine}" alt="Mappa Tattica" class="map-image">
-                </div>
-              `;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associazione Hestía APS - Spazio di Crescita Intergenerazionale</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hestia: {
+                            red: '#A81C1C',
+                            redlight: '#C83232',
+                            yellow: '#F4B41A',
+                            yellowlight: '#F8C84C',
+                            dark: '#222222',
+                            gray: '#4A4A4A',
+                            light: '#FAF7F2',
+                            warmwhite: '#FFFDF9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
             }
-
-            resultContent.innerHTML = `
-              <p style="color:var(--text-color); font-weight:bold;">[COORDINATA TROVATA]</p>
-              <p style="margin-top:8px;">> <strong>Codice:</strong> ${inputCoord}</p>
-              <p style="margin-top:4px;">> <strong>Luogo:</strong> ${posizioneFinal}</p>
-              ${htmlImmagine}
-            `;
-          }
-        } else {
-          resultContent.innerHTML = `
-            <p style="color:var(--alert-color); font-weight:bold;">[NESSUN RISULTATO]</p>
-            <p style="margin-top:8px;">Coordinata <strong>${inputCoord}</strong> non trovata.</p>
-          `;
         }
-      };
+    </script>
+    <style>
+        .gradient-fire {
+            background: linear-gradient(135deg, #A81C1C 0%, #D9481C 50%, #F4B41A 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #A81C1C 0%, #F4B41A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-hestia-light text-hestia-dark font-sans antialiased flex flex-col min-h-screen">
 
-      if (videoElement) {
-        videoElement.onended = mostraRisultato;
-        setTimeout(mostraRisultato, 4000); 
-      } else {
-        setTimeout(mostraRisultato, 2500);
-      }
-    }
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-hestia-warmwhite/90 backdrop-blur-md shadow-sm border-b border-amber-900/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Name -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="logoHestia.png" alt="Logo Associazione Hestía" class="h-12 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/A81C1C/FFFFFF?text=HESTIA';">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-xl sm:text-2xl tracking-tight text-hestia-dark group-hover:text-hestia-red transition-colors">HESTÍA <span class="text-hestia-red font-extrabold text-sm uppercase px-1.5 py-0.5 bg-red-50 rounded">APS</span></span>
+                        <span class="text-xs text-hestia-gray hidden sm:inline">Associazione di Promozione Sociale</span>
+                    </div>
+                </a>
 
-    /* GESTIONE EVENTO DINO (HOME DINOSAURI CON OPZIONE CALCOLATRICE) */
-    function avviaEventoDino() {
-      document.body.classList.add('dino-mode');
-      document.getElementById('sys-title').textContent = "JURASSIC PARK DB";
-      document.getElementById('sys-subtitle').textContent = "ARCHIVIO SPECIE ISOLATE";
-      document.getElementById('result-title').textContent = "REGISTRO DINOSAURI:";
-      document.getElementById('search-section').classList.add('hidden');
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#chi-siamo" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Chi Siamo</a>
+                    <a href="#attivita" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Attività</a>
+                    <a href="#statuto" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Statuto & Valori</a>
+                    <a href="#contatti" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Contatti</a>
+                    
+                    <!-- Instagram Link -->
+                    <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 text-white px-4 py-2 rounded-full font-medium text-sm hover:opacity-90 transition-opacity shadow-sm hover:shadow">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                        <span>Instagram</span>
+                    </a>
+                </nav>
 
-      mostraHomeDinosauri();
-    }
-
-    function mostraHomeDinosauri() {
-      const resultContent = document.getElementById('result-content');
-      resultContent.innerHTML = `
-        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">Seleziona un'opzione:</p>
-        <div class="dino-grid">
-          <button class="dino-btn" style="background: rgba(255,140,0,0.2); border-color: var(--accent-color); color: var(--accent-color);" onclick="mostraCalcolatriceDinosauri()">🧮 Calcolatrice Biometrica</button>
-          <button class="dino-btn" onclick="apriSchedaDino('t-rex')">> 1. Tyrannosaurus Rex</button>
-          <button class="dino-btn" onclick="apriSchedaDino('velociraptor')">> 2. Velociraptor</button>
-          <button class="dino-btn" onclick="apriSchedaDino('triceratops')">> 3. Triceratops</button>
-          <button class="dino-btn" onclick="apriSchedaDino('brachiosaurus')">> 4. Brachiosaurus (Collo Lungo)</button>
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="p-2 text-pink-600 hover:text-pink-700">
+                        <i class="fa-brands fa-instagram text-2xl"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="p-2 text-hestia-dark hover:text-hestia-red focus:outline-none" aria-label="Apri Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <button class="dino-btn back-dino-btn" onclick="esciDaDinoMode()">TORNA AL DB FEDERALE</button>
-      `;
-    }
 
-    function mostraCalcolatriceDinosauri() {
-      const resultContent = document.getElementById('result-content');
-      
-      let gridButtons = '';
-      LISTA_DINOSAURI_CALC.forEach(dino => {
-        gridButtons += `
-          <button class="dino-calc-btn" onclick="aggiungiValoreDino(${dino.valore}, '${dino.immagine}', '${dino.nome}')">
-            <img src="${dino.immagine}" alt="${dino.nome}" class="calc-btn-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'10\' text-anchor=\'middle\' dominant-baseline=\'middle\'>${dino.valore}</text></svg>'">
-            <span>${dino.nome}</span>
-          </button>
-        `;
-      });
-
-      resultContent.innerHTML = `
-        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:6px;">[CALCOLATRICE BIOMETRICA]</p>
-        <div class="dino-calc-container">
-          <div class="dino-screen-label">INPUT SEQUENZA:</div>
-          <div class="dino-screen" id="dino-input-screen" data-raw="">Inserisci sequenza...</div>
-          
-          <div class="dino-calc-grid">
-            ${gridButtons}
-          </div>
-
-          <div class="dino-operators-grid">
-            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('+')">+</button>
-            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('-')">-</button>
-            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('*')">*</button>
-            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('/')">/</button>
-          </div>
-
-          <div class="dino-screen-label">OUTPUT / RISULTATO:</div>
-          <div class="dino-output-screen" id="dino-output-screen">---</div>
-
-          <div class="dino-calc-actions">
-            <button class="dino-btn" style="text-align:center;" onclick="cancellaDinoInput()">CANCELLA</button>
-            <button class="dino-btn" style="text-align:center; background:var(--accent-color); color:#000;" onclick="inviaDinoInput()">ELABORA</button>
-          </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-hestia-warmwhite border-b border-amber-900/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#chi-siamo" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Chi Siamo</a>
+            <a href="#attivita" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Attività</a>
+            <a href="#statuto" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Statuto & Valori</a>
+            <a href="#contatti" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Contatti</a>
+            <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 text-white px-4 py-2.5 rounded-xl font-medium text-sm shadow mt-4">
+                <i class="fa-brands fa-instagram text-lg"></i>
+                <span>Seguici su Instagram</span>
+            </a>
         </div>
-        <button class="dino-btn back-dino-btn" style="margin-top:10px;" onclick="mostraHomeDinosauri()">< INDIETRO AL MENU DINOSAURI</button>
-      `;
-    }
+    </header>
 
-    function aggiungiValoreDino(valore, percorsoImmagine, nomeDino) {
-      const screen = document.getElementById('dino-input-screen');
-      let rawVal = screen.getAttribute('data-raw') || "";
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section class="relative overflow-hidden bg-gradient-to-b from-amber-50/50 via-hestia-light to-hestia-light pt-12 pb-20 md:pt-20 md:pb-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100/80 text-hestia-red font-semibold text-xs uppercase tracking-wider border border-red-200">
+                            <i class="fa-solid fa-fire text-xs"></i> Associazione di Promozione Sociale
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-hestia-dark leading-tight">
+                            Accendi la relazione, <br class="hidden sm:inline">
+                            <span class="text-gradient">riscopri il presente.</span>
+                        </h1>
+                        
+                        <p class="text-lg sm:text-xl text-hestia-gray leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            Uno spazio di crescita personale e intergenerazionale che attraverso il gioco, la creatività e la formazione amplia l'educazione dei giovani oltre la scuola e la famiglia.
+                        </p>
 
-      const itemHtml = `<img src="${percorsoImmagine}" alt="${nomeDino}" class="calc-mini-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'36\' height=\'36\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'10\' text-anchor=\'middle\' dominant-baseline=\'middle\'>${valore}</text></svg>'">`;
+                        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-900 text-sm sm:text-base leading-relaxed flex items-start gap-3 text-left max-w-2xl mx-auto lg:mx-0">
+                            <i class="fa-solid fa-fire-flame-curved text-hestia-red text-xl mt-0.5 shrink-0"></i>
+                            <div>
+                                <strong>La nostra fiamma:</strong> Ci stacchiamo dal flusso costante del digitale per creare connessioni reali con le persone e il contesto circostante. Essere presenti qui e ora, insieme.
+                            </div>
+                        </div>
 
-      if (screen.textContent === "Inserisci sequenza...") {
-        screen.innerHTML = itemHtml;
-        screen.setAttribute('data-raw', valore);
-      } else {
-        screen.innerHTML += " " + itemHtml;
-        screen.setAttribute('data-raw', rawVal + valore);
-      }
-    }
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                            <a href="#chi-siamo" class="w-full sm:w-auto px-8 py-3.5 bg-hestia-red hover:bg-hestia-redlight text-white font-semibold rounded-xl shadow-lg shadow-red-900/20 transition-all transform hover:-translate-y-0.5 text-center">
+                                Scopri la nostra storia
+                            </a>
+                            <a href="#contatti" class="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-gray-50 text-hestia-dark border border-gray-300 font-semibold rounded-xl shadow-sm transition-all text-center">
+                                Diventa Socio
+                            </a>
+                        </div>
+                    </div>
 
-    function aggiungiOperatoreInput(op) {
-      const screen = document.getElementById('dino-input-screen');
-      let rawVal = screen.getAttribute('data-raw') || "";
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-md">
+                            <div class="absolute -inset-1 rounded-3xl gradient-fire opacity-30 blur-2xl"></div>
+                            <div class="relative bg-white p-8 rounded-3xl shadow-xl border border-amber-100 flex flex-col items-center text-center space-y-6">
+                                <img src="logoHestia.png" alt="Logo Ufficiale Hestía" class="w-48 h-auto object-contain py-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200/A81C1C/FFFFFF?text=HESTIA+APS';">
+                                <div class="border-t border-gray-100 pt-4 w-full">
+                                    <p class="font-serif italic text-hestia-gray text-sm">
+                                        "Come il focolare custode della casa, la nostra associazione raccoglie ragazzi, genitori e adulti attorno allo stesso fuoco di idee."
+                                    </p>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs text-hestia-gray pt-2">
+                                    <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-hestia-red"></i> Collegno (TO)</span>
+                                    <span>•</span>
+                                    <span class="flex items-center gap-1"><i class="fa-solid fa-users text-hestia-yellow"></i> Intergenerazionale</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-      const opHtml = `<span style="font-size: 1.3rem; font-weight: bold; color: var(--accent-color); padding: 0 4px;">${op}</span>`;
+                </div>
+            </div>
+        </section>
 
-      if (screen.textContent === "Inserisci sequenza...") {
-        screen.innerHTML = opHtml;
-        screen.setAttribute('data-raw', op);
-      } else {
-        screen.innerHTML += " " + opHtml + " ";
-        screen.setAttribute('data-raw', rawVal + op);
-      }
-    }
+        <!-- CHI SIAMO SECTION CON FOTO ANIMATORI E SEZIONE "PERCHÉ HESTÍA" SOTTO -->
+        <section id="chi-siamo" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Chi Siamo</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Dalla necessità dei giovani al fuoco della comunità</h2>
+                    <div class="w-20 h-1 bg-hestia-yellow mx-auto mt-4 rounded-full"></div>
+                </div>
 
-    function cancellaDinoInput() {
-      const screen = document.getElementById('dino-input-screen');
-      screen.textContent = "Inserisci sequenza...";
-      screen.setAttribute('data-raw', "");
-      document.getElementById('dino-output-screen').textContent = "---";
-    }
+                <!-- PRIMA PARTE: TESTO + FOTO ANIMATORI -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-hestia-gray text-lg leading-relaxed">
+                        <p>
+                            L'<strong>Associazione Hestía APS</strong> nasce dall'iniziativa di un gruppo di giovani che ha sentito la forte necessità di creare vere occasioni di crescita personale e sociale per se stessi, ma con il desiderio profondo di condividerle con bambini, ragazzi, genitori e adulti.
+                        </p>
+                        <p>
+                            Viviamo in un'epoca dominata dalla comunicazione costante, dagli schermi e dalla frenesia. La nostra risposta è la <strong>disconnessione consapevole</strong>: un invito a mettere da parte i dispositivi per recuperare una reale presenza a noi stessi e agli altri, vivendo pienamente il <em class="text-hestia-dark font-medium">"qui e ora"</em>.
+                        </p>
+                        <p>
+                            Attraverso attività ludiche, formative e creative, affianchiamo la scuola e le famiglie offrendo ai ragazzi uno spazio in cui diventare protagonisti attivi del proprio percorso.
+                        </p>
+                    </div>
 
-    function inviaDinoInput() {
-      const screen = document.getElementById('dino-input-screen');
-      const outputScreen = document.getElementById('dino-output-screen');
-      let rawVal = screen.getAttribute('data-raw');
-      
-      if (!rawVal || rawVal.trim() === "") {
-        alert("Inserire una sequenza valida!");
-        return;
-      }
+                    <!-- FOTO DEGLI ANIMATORI DEL CAMPO (AL POSTO DEL VECCHIO BOX) -->
+                    <div class="relative group">
+                        <div class="bg-amber-50 p-4 sm:p-5 rounded-3xl border border-amber-200/80 shadow-md transition-all group-hover:shadow-lg">
+                            <div class="overflow-hidden rounded-2xl relative aspect-[4/3]">
+                                <img src="IMG_5125.jpg" alt="Gli animatori del campo Hestía" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/A81C1C/FFFFFF?text=Animatori+Campo+Hestia';">
+                            </div>
+                            <div class="pt-4 px-2 text-center">
+                                <h4 class="font-bold text-hestia-dark text-base sm:text-lg flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-users text-hestia-red"></i> Gli Animatori del Campo
+                                </h4>
+                                <p class="text-hestia-gray text-xs sm:text-sm mt-1">Il cuore pulsante dell'associazione: giovani coordinatori e volontari dedicati ai ragazzi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      // CONTROLLO: Verifica che l'espressione contenga almeno un operatore (+, -, *, /)
-      const contieneOperatore = /[+\-*/]/.test(rawVal);
-      if (!contieneOperatore) {
-        alert("Errore: Non puoi inviare un solo dato! Inserisci almeno un'operazione tra i dinosauri.");
-        return;
-      }
-      
-      try {
-        // Valuta l'espressione matematica basata sui numeri dei dinosauri
-        let risultato = eval(rawVal);
-        outputScreen.textContent = risultato;
-      } catch (e) {
-        outputScreen.textContent = "ERRORE SINTASSI";
-      }
-    }
+                <!-- SECONDA PARTE (SOTTO): PERCHÉ "HESTÍA"? -->
+                <div class="bg-hestia-light p-8 sm:p-12 rounded-3xl border border-amber-200/60 shadow-sm relative overflow-hidden">
+                    <div class="max-w-4xl mx-auto space-y-6 relative z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-red-100 text-hestia-red flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-fire-burner"></i>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-hestia-dark">Perché "Hestía"?</h3>
+                        </div>
 
-    function apriSchedaDino(chiave) {
-      const dino = DATABASE_DINOSAURI[chiave];
-      const resultContent = document.getElementById('result-content');
+                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed">
+                            Il nome dell'associazione si ispira ad <strong>Hestía</strong>, la dea greca custode del focolare domestico.
+                        </p>
+                        
+                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed">
+                            Per noi rappresenta l'ideale traduzione del <strong>fuoco e del falò attorno al quale concludiamo da sempre i nostri campi estivi</strong>: un simbolo di calore, riparo e condivisione. È la metafora perfetta della comunità coesa, accogliente e viva che costruiamo giorno per giorno insieme con i nostri progetti.
+                        </p>
 
-      let htmlImmagine = "";
-      if (dino.immagine) {
-        htmlImmagine = `
-          <div class="map-image-container">
-            <div class="map-overlay-tag">SPECIE: CLASSIFICATA</div>
-            <img src="${dino.immagine}" alt="${dino.nome}" class="map-image">
-          </div>
-        `;
-      }
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-amber-200/80">
+                            <div class="p-4 bg-white rounded-2xl shadow-sm border border-amber-100/80 text-center space-y-1">
+                                <div class="text-3xl font-extrabold text-hestia-red">100%</div>
+                                <div class="text-sm font-semibold text-hestia-dark">Presenza e Relazione</div>
+                                <p class="text-xs text-hestia-gray">Connessioni vere sul campo e nella quotidianità</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-2xl shadow-sm border border-amber-100/80 text-center space-y-1">
+                                <div class="text-3xl font-extrabold text-hestia-yellow">0%</div>
+                                <div class="text-sm font-semibold text-hestia-dark">Barriere d'Età</div>
+                                <p class="text-xs text-hestia-gray">Spazio aperto a bambini, ragazzi e genitori</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      resultContent.innerHTML = `
-        <p style="color:var(--accent-color); font-weight:bold;">[SCHEDA DINOSAURO]</p>
-        <p style="margin-top:8px;">> <strong>Nome:</strong> ${dino.nome}</p>
-        <p style="margin-top:4px;">> <strong>Minaccia:</strong> ${dino.pericolo}</p>
-        <p style="margin-top:4px;">> <strong>Info:</strong> ${dino.descrizione}</p>
-        ${htmlImmagine}
-        <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraHomeDinosauri()">< INDIETRO AL MENU</button>
-      `;
-    }
+            </div>
+        </section>
 
-    function esciDaDinoMode() {
-      document.body.classList.remove('dino-mode');
-      document.getElementById('sys-title').textContent = "DB-FEDERALE";
-      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
-      document.getElementById('result-title').textContent = "RISULTATO:";
-      document.getElementById('search-section').classList.remove('hidden');
-      document.getElementById('result-content').innerHTML = "In attesa di input...";
-    }
+        <!-- ATTIVITÀ SECTION -->
+        <section id="attivita" class="py-20 bg-hestia-light relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Le Nostre Iniziative</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Cosa Facciamo</h2>
+                    <p class="text-hestia-gray mt-4 text-lg">Esperienze sul campo, momenti di formazione e spazi di condivisione intergenerazionale.</p>
+                    <div class="w-20 h-1 bg-hestia-red mx-auto mt-4 rounded-full"></div>
+                </div>
 
-    function avviaEventoHacking() {
-      document.body.classList.add('hacked-mode');
-      document.getElementById('sys-title').textContent = "INTRUSIONE RILEVATA";
-      document.getElementById('sys-subtitle').textContent = "CANALE COMPROMESSO";
-      document.getElementById('result-title').textContent = "CANALE SCONOSCIUTO";
-      document.getElementById('search-section').classList.add('hidden');
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
+                        <div class="h-48 bg-gradient-to-br from-red-800 to-hestia-red p-6 text-white flex flex-col justify-between relative overflow-hidden">
+                            <i class="fa-solid fa-campground text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
+                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Estate & Soggiorni</span>
+                            <h3 class="text-2xl font-bold">Campi Estivi & Soggiorni</h3>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <p class="text-hestia-gray text-sm leading-relaxed">
+                                Soggiorni gestiti da volontari dedicati a bambini e ragazzi. Momenti di riflessione, laboratori tematici e grandi giochi per favorire la socializzazione, l'autonomia e la crescita in un contesto di natura e disconnessione digitale.
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
+                                <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> Tradizione del Falò</span>
+                                <span class="text-hestia-gray">Bambini e Ragazzi</span>
+                            </div>
+                        </div>
+                    </div>
 
-      document.getElementById('result-content').innerHTML = `
-        <div class="chat-container">
-          <div class="chat-history" id="chat-history"></div>
-          <div class="chat-options" id="chat-options"></div>
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
+                        <div class="h-48 bg-gradient-to-br from-amber-600 to-hestia-yellow p-6 text-white flex flex-col justify-between relative overflow-hidden">
+                            <i class="fa-solid fa-people-roof text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
+                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Incontro & Dialogo</span>
+                            <h3 class="text-2xl font-bold">Incontri Intergenerazionali</h3>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <p class="text-hestia-gray text-sm leading-relaxed">
+                                Laboratori e momenti di scambio dove giovani, genitori e adulti condividono esperienze, competenze e visioni. Spazi di dialogo volti a sviluppare empatiche competenze sociali ed emotive.
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
+                                <span><i class="fa-solid fa-comments text-hestia-yellow mr-1"></i> Dialogo Aperto</span>
+                                <span class="text-hestia-gray">Tutte le Età</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
+                        <div class="h-48 bg-gradient-to-br from-neutral-800 to-hestia-dark p-6 text-white flex flex-col justify-between relative overflow-hidden">
+                            <i class="fa-solid fa-graduation-cap text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
+                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Formazione</span>
+                            <h3 class="text-2xl font-bold">Attività Extrascolastiche</h3>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <p class="text-hestia-gray text-sm leading-relaxed">
+                                Percorsi educativi integrativi volti alla prevenzione del bullismo e della dispersione scolastica. Laboratori creativi e ricreativi pensati per valorizzare il talento e il protagonismo dei più giovani.
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
+                                <span><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Protagonismo Giovanile</span>
+                                <span class="text-hestia-gray">Giovani</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GALLERIA SOGGIORNI E CAMPI -->
+                <div class="mt-16 bg-white p-8 rounded-3xl border border-amber-100 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-hestia-dark">I nostri momenti sul campo</h3>
+                            <p class="text-hestia-gray text-sm">Estratti dalle nostre attività, escursioni e sere attorno al focolare.</p>
+                        </div>
+                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-hestia-red font-semibold hover:underline">
+                            Vedi più foto su Instagram <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
+                            <img src="IMG_5125.jpg" alt="Foto di gruppo Animatori Hestía" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
+                                <span class="text-white text-xs font-medium">Gli animatori del campo</span>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=600&q=80" alt="Falò serale" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
+                                <span class="text-white text-xs font-medium">Il falò serale di fine campo</span>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80" alt="Escursioni e Natura" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
+                                <span class="text-white text-xs font-medium">Camminate ed escursioni</span>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Laboratori creativi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
+                                <span class="text-white text-xs font-medium">Laboratori e condivisione</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSTAGRAM BANNER SECTION -->
+        <section class="py-12 bg-gradient-to-r from-purple-900 via-pink-800 to-red-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4 text-center sm:text-left">
+                    <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 mx-auto sm:mx-0">
+                        <i class="fa-brands fa-instagram text-3xl text-amber-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">Rimani aggiornato su Instagram</h3>
+                        <p class="text-white/80 text-sm">Segui le nostre storie, gli eventi in programma e le foto dei campi estivi su <strong>@associazionehestia</strong></p>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white text-pink-900 font-bold rounded-xl shadow-lg hover:bg-amber-50 transition-colors shrink-0">
+                    Seguici Ora <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- STATUTO E VALORI SECTION -->
+        <section id="statuto" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Trasparenza & Struttura</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Iscrizione & Finalità Statutarie</h2>
+                    <p class="text-hestia-gray mt-3">L'Associazione Hestía opera secondo il Codice del Terzo Settore (D. Lgs. 117/2017)</p>
+                    <div class="w-20 h-1 bg-hestia-yellow mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
+                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h4 class="font-bold text-hestia-dark text-lg">Ente del Terzo Settore</h4>
+                        <p class="text-hestia-gray text-sm leading-relaxed">Associazione di Promozione Sociale (APS) apartitica, aconfessionale e senza scopo di lucro.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
+                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <h4 class="font-bold text-hestia-dark text-lg">Volontariato Attivo</h4>
+                        <p class="text-hestia-gray text-sm leading-relaxed">Avvalendosi in modo prevalente delle prestazioni personali, spontanee e gratuite dei propri associati.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
+                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-handshake"></i></div>
+                        <h4 class="font-bold text-hestia-dark text-lg">Supporto agli ETS</h4>
+                        <p class="text-hestia-gray text-sm leading-relaxed">Consulenza e progettazione di soggiorni ed esperienze educative anche per altri Enti del Terzo Settore.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
+                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-door-open"></i></div>
+                        <h4 class="font-bold text-hestia-dark text-lg">Ammissione Soci</h4>
+                        <p class="text-hestia-gray text-sm leading-relaxed">Aperta a tutte le persone fisiche e minori (con firma dell'esercente la potestà) che ne condividano i principi.</p>
+                    </div>
+                </div>
+
+                <!-- Dati di Trasparenza -->
+                <div class="mt-12 bg-amber-50/60 p-6 rounded-2xl border border-amber-200/60 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-hestia-gray">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-building text-hestia-red text-xl"></i>
+                        <div>
+                            <span class="font-bold text-hestia-dark">Sede Legale:</span> Via Vandalino n. 43, Collegno (TO)
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-certificate text-hestia-yellow text-xl"></i>
+                        <div>
+                            <span class="font-bold text-hestia-dark">Ambito Territoriale:</span> Torino, Regione Piemonte e Nazionale
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATTI SECTION -->
+        <section id="contatti" class="py-20 bg-hestia-light relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Mettiti in Contatto</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Unisciti al Focolare Hestía</h2>
+                    <p class="text-hestia-gray mt-3">Vuoi partecipare alle attività, richiedere informazioni o diventare socio?</p>
+                    <div class="w-20 h-1 bg-hestia-red mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Info Contatto -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm space-y-6">
+                            <h3 class="text-xl font-bold text-hestia-dark border-b border-gray-100 pb-4">Recapiti Ufficiali</h3>
+                            
+                            <div class="space-y-4 text-sm">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-red-50 text-hestia-red flex items-center justify-center shrink-0 font-bold">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-hestia-dark">Sede Legale</h4>
+                                        <p class="text-hestia-gray">Via Vandalino, 43<br>10093 Collegno (TO)</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-bold">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-hestia-dark">Instagram</h4>
+                                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="text-hestia-red hover:underline">
+                                            @associazionehestia
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-hestia-yellow flex items-center justify-center shrink-0 font-bold">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-hestia-dark">Email</h4>
+                                        <p class="text-hestia-gray">info@associazionehestia.it</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Unisciti a noi -->
+                        <div class="gradient-fire p-8 rounded-3xl text-white shadow-lg space-y-4">
+                            <h3 class="text-xl font-bold">Diventa Volontario o Socio</h3>
+                            <p class="text-white/90 text-sm leading-relaxed">
+                                Se credi nel valore della presenza, nel dialogo tra generazioni e vuoi proporre nuove idee per i giovani, c'è sempre un posto per te attorno al nostro fuoco.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Form di Contatto -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-white p-8 sm:p-10 rounded-3xl border border-amber-100 shadow-sm">
+                            <h3 class="text-2xl font-bold text-hestia-dark mb-6">Invia un messaggio</h3>
+                            
+                            <form id="contact-form" class="space-y-5" onsubmit="event.preventDefault(); alert('Grazie per il messaggio! Ti risponderemo al più presto.');">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Nome e Cognome *</label>
+                                        <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="Mario Rossi">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Email *</label>
+                                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="mario@esempio.it">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Motivo della richiesta</label>
+                                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all text-hestia-gray">
+                                        <option>Richiesta Informazioni generali</option>
+                                        <option>Iscrizione o Partecipazione ai Campi Estivi</option>
+                                        <option>Diventare Socio / Volontario</option>
+                                        <option>Collaborazione per Enti del Terzo Settore</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Messaggio *</label>
+                                    <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="Scrivi qui il tuo messaggio..."></textarea>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="privacy" required class="rounded text-hestia-red focus:ring-hestia-red">
+                                    <label for="privacy" class="text-xs text-hestia-gray">Acconsento al trattamento dei dati personali ai sensi della Privacy Policy.</label>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 bg-hestia-red hover:bg-hestia-redlight text-white font-bold rounded-xl shadow-md transition-all">
+                                    Invia Messaggio
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-hestia-dark text-white pt-16 pb-12 border-t border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <img src="logoHestia.png" alt="Logo Hestia" class="h-10 w-auto filter brightness-0 invert" onerror="this.onerror=null; this.src='https://via.placeholder.com/100x100/FFFFFF/000000?text=HESTIA';">
+                        <span class="font-bold text-2xl tracking-tight">HESTÍA <span class="text-hestia-yellow text-xs">APS</span></span>
+                    </div>
+                    <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">
+                        Spazio di crescita personale intergenerazionale. Coltiviamo la presenza reale, la relazione e il protagonismo giovanile oltre la scuola e la famiglia.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-neutral-800 hover:bg-gradient-to-tr hover:from-yellow-500 hover:to-purple-600 flex items-center justify-center text-white transition-colors">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-hestia-yellow">Link Rapidi</h4>
+                    <ul class="space-y-2 text-sm text-neutral-400">
+                        <li><a href="#chi-siamo" class="hover:text-white transition-colors">Chi Siamo</a></li>
+                        <li><a href="#attivita" class="hover:text-white transition-colors">Attività & Campi</a></li>
+                        <li><a href="#statuto" class="hover:text-white transition-colors">Statuto & Valori</a></li>
+                        <li><a href="#contatti" class="hover:text-white transition-colors">Contatti & Adesioni</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 space-y-3 text-sm text-neutral-400">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-hestia-yellow">Sede Legale</h4>
+                    <p>Associazione Hestía APS</p>
+                    <p>Via Vandalino n. 43 - 10093 Collegno (TO)</p>
+                    <p class="text-xs text-neutral-500 pt-2">Ente del Terzo Settore iscritto nel rispetto del D. Lgs. 117/2017</p>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center sm:flex sm:justify-between sm:text-left text-xs text-neutral-500">
+                <p>&copy; 2026 Associazione Hestía APS. Tutti i diritti riservati.</p>
+                <p class="mt-2 sm:mt-0">Sito web realizzato per la promozione sociale e giovanile.</p>
+            </div>
         </div>
-      `;
+    </footer>
 
-      inviaMessaggioIA("start");
-    }
+    <!-- JAVASCRIPT FOR MOBILE MENU & SMOOTH SCROLL -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    function inviaMessaggioIA(nodoChiave) {
-      const nodo = IA_atto_1[nodoChiave];
-      if (!nodo) return;
-
-      const history = document.getElementById('chat-history');
-      const options = document.getElementById('chat-options');
-
-      const testoMessaggioIA = nodo.messaggio.replace(/{SQUADRA}/g, squadraAutenticata.toUpperCase());
-
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'chat-msg ia';
-      msgDiv.innerHTML = `
-        <span class="chat-msg-tag">[IA]:</span>
-        <span class="chat-msg-text">${testoMessaggioIA}</span>
-      `;
-      history.appendChild(msgDiv);
-      history.scrollTop = history.scrollHeight;
-
-      options.innerHTML = '';
-      if (nodo.opzioni && nodo.opzioni.length > 0) {
-        nodo.opzioni.forEach(opt => {
-          const testoDinamico = opt.testo.replace(/{SQUADRA}/g, squadraAutenticata.toUpperCase());
-
-          const btn = document.createElement('button');
-          btn.className = 'chat-btn';
-          btn.textContent = `> ${testoDinamico}`;
-          btn.onclick = () => rispondiSquadra(testoDinamico, opt.prossimoNodo);
-          options.appendChild(btn);
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
-      } else {
-        options.innerHTML = `
-          <p style="font-size:0.95rem; color:var(--alert-color); margin-bottom:6px; font-weight:bold;">[INTRUSO RIMOSSO DAL SISTEMA]</p>
-          <button class="restore-btn" onclick="ripristinaSistemaEDisplayPosizione()">RIPRISTINA SISTEMA</button>
-        `;
-      }
-    }
 
-    function rispondiSquadra(testoOpzione, prossimoNodo) {
-      const history = document.getElementById('chat-history');
-
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'chat-msg team';
-      msgDiv.innerHTML = `
-        <span class="chat-msg-tag">[${squadraAutenticata.toUpperCase()}]:</span>
-        <span class="chat-msg-text">${testoOpzione}</span>
-      `;
-      history.appendChild(msgDiv);
-      history.scrollTop = history.scrollHeight;
-
-      document.getElementById('chat-options').innerHTML = `<p style="font-size:0.95rem; font-weight:bold;">Elaborazione...</p>`;
-
-      setTimeout(() => {
-        inviaMessaggioIA(prossimoNodo);
-      }, 800);
-    }
-
-    function ripristinaSistemaEDisplayPosizione() {
-      document.body.classList.remove('hacked-mode');
-      document.getElementById('sys-title').textContent = "DB-FEDERALE";
-      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
-      document.getElementById('result-title').textContent = "RISULTATO:";
-      document.getElementById('search-section').classList.remove('hidden');
-
-      const info = DATABASE_COORDINATE[squadraAutenticata][coordinataCorrenteHacking];
-      if (info) info.sbloccato = true;
-
-      let htmlImmagine = "";
-      if (info && info.immagine) {
-        htmlImmagine = `
-          <div class="map-image-container">
-            <div class="map-overlay-tag">TARGET AGGANCIATO</div>
-            <img src="${info.immagine}" alt="Mappa Tattica" class="map-image">
-          </div>
-        `;
-      }
-
-      const luogoFinale = info ? info.luogo : "Sconosciuto";
-
-      document.getElementById('result-content').innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold;">[DATO DECRITTATO]</p>
-        <p style="margin-top:8px;">> <strong>Codice:</strong> ${coordinataCorrenteHacking}</p>
-        <p style="margin-top:4px;">> <strong>Luogo:</strong> ${luogoFinale}</p>
-        ${htmlImmagine}
-      `;
-
-      coordinataCorrenteHacking = null;
-    }
-
-    coordInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') ricercaCoordinata();
-    });
-
-    function logout() {
-      squadraAutenticata = null;
-      coordinataCorrenteHacking = null;
-      document.body.classList.remove('hacked-mode');
-      document.body.classList.remove('dino-mode');
-      document.getElementById('sys-title').textContent = "DB-FEDERALE";
-      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
-      document.getElementById('result-title').textContent = "RISULTATO:";
-      document.getElementById('search-section').classList.remove('hidden');
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-      document.getElementById('dashboard-panel').classList.add('hidden');
-      document.getElementById('help-panel').classList.add('hidden');
-      document.getElementById('login-panel').classList.remove('hidden');
-    }
-  </script>
-
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
