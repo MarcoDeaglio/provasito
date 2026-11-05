@@ -14,21 +14,19 @@ collections:
         name: "dati"
         format: "json"
         fields:
-          # ASSOCIAZIONE
           - label: "Associazione"
             name: "associazione"
             widget: "object"
             fields:
               - { label: "Nome Associazione", name: "nome", widget: "string" }
-              - { label: "Tipologia", name: "tipologia", widget: "string" }
-              - { label: "Motto", name: "motto", widget: "string" }
-              - { label: "Submotto", name: "submotto", widget: "text" }
-              - { label: "La Nostra Fiamma", name: "laNostraFiamma", widget: "text" }
+              - { label: "Tipologia Ente", name: "tipologia", widget: "string" }
+              - { label: "Slogan / Motto", name: "motto", widget: "string" }
+              - { label: "Sottotitolo Hero", name: "submotto", widget: "text" }
+              - { label: "Testo 'La nostra fiamma'", name: "laNostraFiamma", widget: "text" }
               - { label: "Sede Legale", name: "sedeLegale", widget: "string" }
               - { label: "Link Instagram", name: "instagramUrl", widget: "string" }
 
-          # CHI SIAMO & FOTO ANIMATORI
-          - label: "Chi Siamo & Foto Gruppo"
+          - label: "Chi Siamo"
             name: "chiSiamo"
             widget: "object"
             fields:
@@ -36,7 +34,7 @@ collections:
               - { label: "Paragrafo 1", name: "paragrafo1", widget: "text" }
               - { label: "Paragrafo 2", name: "paragrafo2", widget: "text" }
               - { label: "Paragrafo 3", name: "paragrafo3", widget: "text" }
-              - { label: "Foto Gruppo Animatori", name: "fotoAnimatori", widget: "image" } # <--- CAMPO FOTO CHI SIAMO
+              - { label: "Foto Gruppo Animatori", name: "fotoAnimatori", widget: "image" }
               - label: "Perché Hestía"
                 name: "percheHestia"
                 widget: "object"
@@ -44,7 +42,6 @@ collections:
                   - { label: "Testo 1", name: "testo1", widget: "text" }
                   - { label: "Testo 2", name: "testo2", widget: "text" }
 
-          # ATTIVITÀ CON FOTO DEDICATA
           - label: "Elenco Attività"
             name: "attivita"
             widget: "list"
@@ -52,6 +49,6 @@ collections:
               - { label: "Titolo Attività", name: "titolo", widget: "string" }
               - { label: "Badge / Categoria", name: "badge", widget: "string" }
               - { label: "Descrizione", name: "descrizione", widget: "text" }
-              - { label: "Foto dell'Attività", name: "immagine", widget: "image" } # <--- CAMPO FOTO PER OGNI ATTIVITÀ
+              - { label: "Foto dell'Attività", name: "immagine", widget: "image" }
               - { label: "Tag Principale", name: "tag", widget: "string" }
               - { label: "Target", name: "target", widget: "string" }
