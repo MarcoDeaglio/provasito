@@ -6,7 +6,7 @@ media_folder: "images"
 public_folder: "/images"
 
 collections:
-  - name: "gestione_sito"
+  - name: "contenuti"
     label: "Contenuti Sito Web"
     files:
       - file: "dati.json"
@@ -14,45 +14,39 @@ collections:
         name: "dati"
         format: "json"
         fields:
-          # SEZIONE ASSOCIAZIONE
-          - label: "Dati Associazione"
+          - label: "Associazione"
             name: "associazione"
             widget: "object"
             fields:
               - { label: "Nome Associazione", name: "nome", widget: "string" }
-              - { label: "Tipologia Ente", name: "tipologia", widget: "string" }
-              - { label: "Slogan / Motto", name: "motto", widget: "string" }
-              - { label: "Sottotitolo Hero", name: "submotto", widget: "text" }
-              - { label: "Testo 'La nostra fiamma'", name: "laNostraFiamma", widget: "text" }
+              - { label: "Tipologia", name: "tipologia", widget: "string" }
+              - { label: "Motto", name: "motto", widget: "string" }
+              - { label: "Submotto", name: "submotto", widget: "text" }
+              - { label: "La Nostra Fiamma", name: "laNostraFiamma", widget: "text" }
               - { label: "Sede Legale", name: "sedeLegale", widget: "string" }
               - { label: "Link Instagram", name: "instagramUrl", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
 
-          # SEZIONE CHI SIAMO
-          - label: "Sezione Chi Siamo"
+          - label: "Chi Siamo"
             name: "chiSiamo"
             widget: "object"
             fields:
-              - { label: "Titolo", name: "titolo", widget: "string" }
               - { label: "Sottotitolo", name: "sottotitolo", widget: "string" }
-              - { label: "Paragrafo 1 (Storia)", name: "paragrafo1", widget: "text" }
-              - { label: "Paragrafo 2 (Disconnessione)", name: "paragrafo2", widget: "text" }
-              - { label: "Paragrafo 3 (Extrascolastico)", name: "paragrafo3", widget: "text" }
-              - label: "Box 'Perché Hestía?'"
+              - { label: "Paragrafo 1", name: "paragrafo1", widget: "text" }
+              - { label: "Paragrafo 2", name: "paragrafo2", widget: "text" }
+              - { label: "Paragrafo 3", name: "paragrafo3", widget: "text" }
+              - label: "Perché Hestía"
                 name: "percheHestia"
                 widget: "object"
                 fields:
-                  - { label: "Titolo Box", name: "titolo", widget: "string" }
-                  - { label: "Spiegazione 1 (Focolare)", name: "testo1", widget: "text" }
-                  - { label: "Spiegazione 2 (Falò)", name: "testo2", widget: "text" }
+                  - { label: "Testo 1", name: "testo1", widget: "text" }
+                  - { label: "Testo 2", name: "testo2", widget: "text" }
 
-          # SEZIONE ATTIVITÀ
           - label: "Elenco Attività"
             name: "attivita"
             widget: "list"
             fields:
-              - { label: "Titolo Attività", name: "titolo", widget: "string" }
-              - { label: "Badge / Categoria", name: "badge", widget: "string" }
+              - { label: "Titolo", name: "titolo", widget: "string" }
+              - { label: "Badge", name: "badge", widget: "string" }
               - { label: "Descrizione", name: "descrizione", widget: "text" }
-              - { label: "Tag Principale", name: "tag", widget: "string" }
-              - { label: "Target (es. Giovani, Bambini)", name: "target", widget: "string" }
+              - { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Target", name: "target", widget: "string" }
