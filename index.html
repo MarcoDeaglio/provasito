@@ -269,24 +269,22 @@
     </footer>
 
     <!-- SCRIPT DINAMICO CHE LEGGE IL FILE JSON -->
-   <script>
+<script>
     const datiDefault = {
         associazione: {
-            nome: "HESTÍA APS",
             tipologia: "Associazione di Promozione Sociale",
-            submotto: "Uno spazio di crescita personale e intergenerazionale che attraverso il gioco, la creatività e la formazione amplia l'educazione dei giovani oltre la scuola e la famiglia.",
-            laNostraFiamma: "Ci stacchiamo dal flusso costante del digitale per creare connessioni reali con le persone e il contesto circostante. Essere presenti qui e ora, insieme.",
+            submotto: "Uno spazio di crescita personale e intergenerazionale...",
+            laNostraFiamma: "Ci stacchiamo dal flusso costante del digitale...",
             sedeLegale: "Via Vandalino, 43 - 10093 Collegno (TO)",
             instagramUrl: "https://www.instagram.com/associazionehestia/"
         },
         chiSiamo: {
-            titolo: "Chi Siamo",
             sottotitolo: "Dalla necessità dei giovani al fuoco della comunità",
             paragrafo1: "L'Associazione Hestía APS nasce dall'iniziativa di un gruppo di giovani...",
-            paragrafo2: "Viviamo in un'epoca dominata dalla comunicazione costante...",
+            paragrafo2: "Viviamo in un'epoca dominata dalla comunicazione...",
             paragrafo3: "Attraverso attività ludiche, formative e creative...",
+            fotoAnimatori: "IMG_5125.jpg",
             percheHestia: {
-                titolo: "Perché 'Hestía'?",
                 testo1: "Il nome dell'associazione si ispira ad Hestía...",
                 testo2: "Per noi rappresenta l'ideale traduzione del fuoco..."
             }
@@ -296,6 +294,7 @@
                 titolo: "Campi Estivi & Soggiorni",
                 badge: "Estate & Soggiorni",
                 descrizione: "Soggiorni gestiti da volontari dedicati a bambini e ragazzi...",
+                immagine: "IMG_5125.jpg",
                 tag: "Tradizione del Falò",
                 target: "Bambini e Ragazzi"
             }
@@ -305,22 +304,24 @@
     function applicaDati(data) {
         if (!data) return;
 
-        // Estrazione valori sia da formato flat ("associazione.tipologia") sia da formato ad oggetti ({ associazione: { tipologia: ... } })
+        // Estrazione Dati Associazione
         const tipologia = data["associazione.tipologia"] || data.associazione?.tipologia || datiDefault.associazione.tipologia;
         const submotto = data["associazione.submotto"] || data.associazione?.submotto || datiDefault.associazione.submotto;
         const laNostraFiamma = data["associazione.laNostraFiamma"] || data.associazione?.laNostraFiamma || datiDefault.associazione.laNostraFiamma;
         const instagramUrl = data["associazione.instagramUrl"] || data.associazione?.instagramUrl || datiDefault.associazione.instagramUrl;
         const sedeLegale = data["associazione.sedeLegale"] || data.associazione?.sedeLegale || datiDefault.associazione.sedeLegale;
 
+        // Estrazione Dati Chi Siamo
         const chiSiamoSottotitolo = data["chiSiamo.sottotitolo"] || data.chiSiamo?.sottotitolo || datiDefault.chiSiamo.sottotitolo;
         const p1 = data["chiSiamo.paragrafo1"] || data.chiSiamo?.paragrafo1 || datiDefault.chiSiamo.paragrafo1;
         const p2 = data["chiSiamo.paragrafo2"] || data.chiSiamo?.paragrafo2 || datiDefault.chiSiamo.paragrafo2;
         const p3 = data["chiSiamo.paragrafo3"] || data.chiSiamo?.paragrafo3 || datiDefault.chiSiamo.paragrafo3;
-        
+        const fotoAnimatori = data["chiSiamo.fotoAnimatori"] || data.chiSiamo?.fotoAnimatori || datiDefault.chiSiamo.fotoAnimatori;
+
         const percheTesto1 = data["chiSiamo.percheHestia.testo1"] || data.chiSiamo?.percheHestia?.testo1 || datiDefault.chiSiamo.percheHestia.testo1;
         const percheTesto2 = data["chiSiamo.percheHestia.testo2"] || data.chiSiamo?.percheHestia?.testo2 || datiDefault.chiSiamo.percheHestia.testo2;
 
-        // Applicazione al DOM (sostituendo eventuali i trattini "--" lasciati vuoti dal CMS con il valore predefinito)
+        // Inserimento nei testi HTML
         document.getElementById('header-tipologia').innerText = (tipologia !== "--") ? tipologia : datiDefault.associazione.tipologia;
         document.getElementById('hero-badge').innerText = (tipologia !== "--") ? tipologia : datiDefault.associazione.tipologia;
         document.getElementById('hero-submotto').innerText = (submotto !== "--") ? submotto : datiDefault.associazione.submotto;
@@ -336,20 +337,38 @@
         document.getElementById('perche-p1').innerText = (percheTesto1 !== "--") ? percheTesto1 : datiDefault.chiSiamo.percheHestia.testo1;
         document.getElementById('perche-p2').innerText = (percheTesto2 !== "--") ? percheTesto2 : datiDefault.chiSiamo.percheHestia.testo2;
 
-        // Renderizza la lista delle Attività
+        // ASSOCIAZIONE FOTO ANIMATORI
+        const imgAnimatori = document.querySelector('#chi-siamo img');
+        if (imgAnimatori && fotoAnimatori) {
+            imgAnimatori.src = fotoAnimatori;
+        }
+
+        // RENDER ATTIVITÀ CON FOTO COLLEGATA ALLA SCRITTA
         const container = document.getElementById('attivita-container');
         const listaAttivita = data.attivita || datiDefault.attivita;
         if (container && Array.isArray(listaAttivita)) {
             container.innerHTML = '';
             listaAttivita.forEach(att => {
+                const imgSrc = att.immagine || 'IMG_5125.jpg'; // Foto predefinita se manca
                 container.innerHTML += `
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col p-6 space-y-4">
-                        <span class="bg-amber-100 text-hestia-red text-xs px-3 py-1 rounded-full w-max font-semibold">${att.badge || ''}</span>
-                        <h3 class="text-2xl font-bold text-hestia-dark">${att.titolo || ''}</h3>
-                        <p class="text-hestia-gray text-sm leading-relaxed">${att.descrizione || ''}</p>
-                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium mt-auto">
-                            <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> ${att.tag || ''}</span>
-                            <span class="text-hestia-gray">${att.target || ''}</span>
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col hover:shadow-md transition-shadow">
+                        <!-- Foto associata all'attività -->
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${imgSrc}" alt="${att.titolo || 'Attività'}" class="w-full h-full object-cover">
+                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-hestia-red text-xs px-3 py-1 rounded-full font-bold shadow">
+                                ${att.badge || ''}
+                            </span>
+                        </div>
+                        <!-- Testo dell'attività -->
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-hestia-dark mb-2">${att.titolo || ''}</h3>
+                                <p class="text-hestia-gray text-sm leading-relaxed">${att.descrizione || ''}</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium mt-auto">
+                                <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> ${att.tag || ''}</span>
+                                <span class="text-hestia-gray">${att.target || ''}</span>
+                            </div>
                         </div>
                     </div>
                 `;
