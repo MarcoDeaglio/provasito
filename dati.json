@@ -1,0 +1,47 @@
+{
+  associazione {
+    nome HESTÍA APS,
+    tipologia Associazione di Promozione Sociale,
+    motto Accendi la relazione, riscopri il presente.,
+    submotto Uno spazio di crescita personale e intergenerazionale che attraverso il gioco, la creatività e la formazione amplia l'educazione dei giovani oltre la scuola e la famiglia.,
+    laNostraFiamma Ci stacchiamo dal flusso costante del digitale per creare connessioni reali con le persone e il contesto circostante. Essere presenti qui e ora, insieme.,
+    sedeLegale Via Vandalino, 43 - 10093 Collegno (TO),
+    instagramUrl httpswww.instagram.comassociazionehestia,
+    email info@associazionehestia.it
+  },
+  chiSiamo {
+    titolo Chi Siamo,
+    sottotitolo Dalla necessità dei giovani al fuoco della comunità,
+    paragrafo1 L'Associazione Hestía APS nasce dall'iniziativa di un gruppo di giovani che ha sentito la forte necessità di creare vere occasioni di crescita personale e sociale per se stessi, ma con il desiderio profondo di condividerle con bambini, ragazzi, genitori e adulti.,
+    paragrafo2 Viviamo in un'epoca dominata dalla comunicazione costante, dagli schermi e dalla frenesia. La nostra risposta è la disconnessione consapevole un invito a mettere da parte i dispositivi per recuperare una reale presenza a noi stessi e agli altri, vivendo pienamente il 'qui e ora'.,
+    paragrafo3 Attraverso attività ludiche, formative e creative, affianchiamo la scuola e le famiglie offrendo ai ragazzi uno spazio in cui diventare protagonisti attivi del proprio percorso.,
+    percheHestia {
+      titolo Perché 'Hestía',
+      testo1 Il nome dell'associazione si ispira ad Hestía, la dea greca custode del focolare domestico.,
+      testo2 Per noi rappresenta l'ideale traduzione del fuoco e del falò attorno al quale concludiamo da sempre i nostri campi estivi un simbolo di calore, riparo e condivisione. È la metafora perfetta della comunità coesa, accogliente e viva che costruiamo giorno per giorno insieme con i nostri progetti.
+    }
+  },
+  attivita [
+    {
+      titolo Campi Estivi & Soggiorni,
+      badge Estate & Soggiorni,
+      descrizione Soggiorni gestiti da volontari dedicati a bambini e ragazzi. Momenti di riflessione, laboratori tematici e grandi giochi per favorire la socializzazione, l'autonomia e la crescita in un contesto di natura e disconnessione digitale.,
+      tag Tradizione del Falò,
+      target Bambini e Ragazzi
+    },
+    {
+      titolo Incontri Intergenerazionali,
+      badge Incontro & Dialogo,
+      descrizione Laboratori e momenti di scambio dove giovani, genitori e adulti condividono esperienze, competenze e visioni. Spazi di dialogo volti a sviluppare empatiche competenze sociali ed emotive.,
+      tag Dialogo Aperto,
+      target Tutte le Età
+    },
+    {
+      titolo Attività Extrascolastiche,
+      badge Formazione,
+      descrizione Percorsi educativi integrativi volti alla prevenzione del bullismo e della dispersione scolastica. Laboratori creativi e ricreativi pensati per valorizzare il talento e il protagonismo dei più giovani.,
+      tag Protagonismo Giovanile,
+      target Giovani
+    }
+  ]
+}
