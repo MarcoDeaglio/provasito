@@ -54,34 +54,27 @@
     <header class="sticky top-0 z-50 bg-hestia-warmwhite/90 backdrop-blur-md shadow-sm border-b border-amber-900/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo & Name -->
                 <a href="#" class="flex items-center gap-3 group">
                     <img src="logoHestia.png" alt="Logo Associazione Hestía" class="h-12 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/A81C1C/FFFFFF?text=HESTIA';">
                     <div class="flex flex-col">
                         <span class="font-bold text-xl sm:text-2xl tracking-tight text-hestia-dark group-hover:text-hestia-red transition-colors">HESTÍA <span class="text-hestia-red font-extrabold text-sm uppercase px-1.5 py-0.5 bg-red-50 rounded">APS</span></span>
-                        <span class="text-xs text-hestia-gray hidden sm:inline">Associazione di Promozione Sociale</span>
+                        <span class="text-xs text-hestia-gray hidden sm:inline" id="header-tipologia">Associazione di Promozione Sociale</span>
                     </div>
                 </a>
 
-                <!-- Desktop Menu -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#chi-siamo" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Chi Siamo</a>
                     <a href="#attivita" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Attività</a>
                     <a href="#statuto" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Statuto & Valori</a>
                     <a href="#contatti" class="text-hestia-dark hover:text-hestia-red font-medium transition-colors">Contatti</a>
                     
-                    <!-- Instagram Link -->
-                    <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 text-white px-4 py-2 rounded-full font-medium text-sm hover:opacity-90 transition-opacity shadow-sm hover:shadow">
+                    <a id="btn-instagram" href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 text-white px-4 py-2 rounded-full font-medium text-sm hover:opacity-90 transition-opacity shadow-sm">
                         <i class="fa-brands fa-instagram text-lg"></i>
                         <span>Instagram</span>
                     </a>
                 </nav>
 
-                <!-- Mobile Hamburger Button -->
                 <div class="md:hidden flex items-center gap-2">
-                    <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="p-2 text-pink-600 hover:text-pink-700">
-                        <i class="fa-brands fa-instagram text-2xl"></i>
-                    </a>
                     <button id="mobile-menu-btn" class="p-2 text-hestia-dark hover:text-hestia-red focus:outline-none" aria-label="Apri Menu">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
@@ -89,16 +82,11 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-hestia-warmwhite border-b border-amber-900/10 px-4 pt-2 pb-6 space-y-3">
             <a href="#chi-siamo" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Chi Siamo</a>
             <a href="#attivita" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Attività</a>
             <a href="#statuto" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Statuto & Valori</a>
             <a href="#contatti" class="mobile-link block px-3 py-2 rounded-md text-base font-medium hover:bg-amber-50 text-hestia-dark hover:text-hestia-red">Contatti</a>
-            <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-500 text-white px-4 py-2.5 rounded-xl font-medium text-sm shadow mt-4">
-                <i class="fa-brands fa-instagram text-lg"></i>
-                <span>Seguici su Instagram</span>
-            </a>
         </div>
     </header>
 
@@ -110,27 +98,27 @@
                     
                     <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100/80 text-hestia-red font-semibold text-xs uppercase tracking-wider border border-red-200">
-                            <i class="fa-solid fa-fire text-xs"></i> Associazione di Promozione Sociale
+                            <i class="fa-solid fa-fire text-xs"></i> <span id="hero-badge">Associazione di Promozione Sociale</span>
                         </div>
                         
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-hestia-dark leading-tight">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-hestia-dark leading-tight" id="hero-motto">
                             Accendi la relazione, <br class="hidden sm:inline">
                             <span class="text-gradient">riscopri il presente.</span>
                         </h1>
                         
-                        <p class="text-lg sm:text-xl text-hestia-gray leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Uno spazio di crescita personale e intergenerazionale che attraverso il gioco, la creatività e la formazione amplia l'educazione dei giovani oltre la scuola e la famiglia.
+                        <p class="text-lg sm:text-xl text-hestia-gray leading-relaxed max-w-2xl mx-auto lg:mx-0" id="hero-submotto">
+                            Loading...
                         </p>
 
                         <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-900 text-sm sm:text-base leading-relaxed flex items-start gap-3 text-left max-w-2xl mx-auto lg:mx-0">
                             <i class="fa-solid fa-fire-flame-curved text-hestia-red text-xl mt-0.5 shrink-0"></i>
                             <div>
-                                <strong>La nostra fiamma:</strong> Ci stacchiamo dal flusso costante del digitale per creare connessioni reali con le persone e il contesto circostante. Essere presenti qui e ora, insieme.
+                                <strong>La nostra fiamma:</strong> <span id="hero-fiamma">Loading...</span>
                             </div>
                         </div>
 
                         <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                            <a href="#chi-siamo" class="w-full sm:w-auto px-8 py-3.5 bg-hestia-red hover:bg-hestia-redlight text-white font-semibold rounded-xl shadow-lg shadow-red-900/20 transition-all transform hover:-translate-y-0.5 text-center">
+                            <a href="#chi-siamo" class="w-full sm:w-auto px-8 py-3.5 bg-hestia-red hover:bg-hestia-redlight text-white font-semibold rounded-xl shadow-lg transition-all text-center">
                                 Scopri la nostra storia
                             </a>
                             <a href="#contatti" class="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-gray-50 text-hestia-dark border border-gray-300 font-semibold rounded-xl shadow-sm transition-all text-center">
@@ -149,11 +137,6 @@
                                         "Come il focolare custode della casa, la nostra associazione raccoglie ragazzi, genitori e adulti attorno allo stesso fuoco di idee."
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-4 text-xs text-hestia-gray pt-2">
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-hestia-red"></i> Collegno (TO)</span>
-                                    <span>•</span>
-                                    <span class="flex items-center gap-1"><i class="fa-solid fa-users text-hestia-yellow"></i> Intergenerazionale</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,76 +145,49 @@
             </div>
         </section>
 
-        <!-- CHI SIAMO SECTION CON FOTO ANIMATORI E SEZIONE "PERCHÉ HESTÍA" SOTTO -->
+        <!-- CHI SIAMO SECTION -->
         <section id="chi-siamo" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
                 
                 <div class="text-center max-w-3xl mx-auto">
-                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Chi Siamo</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Dalla necessità dei giovani al fuoco della comunità</h2>
+                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase" id="chisiamo-titolo">Chi Siamo</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2" id="chisiamo-sottotitolo">Loading...</h2>
                     <div class="w-20 h-1 bg-hestia-yellow mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <!-- PRIMA PARTE: TESTO + FOTO ANIMATORI -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 text-hestia-gray text-lg leading-relaxed">
-                        <p>
-                            L'<strong>Associazione Hestía APS</strong> nasce dall'iniziativa di un gruppo di giovani che ha sentito la forte necessità di creare vere occasioni di crescita personale e sociale per se stessi, ma con il desiderio profondo di condividerle con bambini, ragazzi, genitori e adulti.
-                        </p>
-                        <p>
-                            Viviamo in un'epoca dominata dalla comunicazione costante, dagli schermi e dalla frenesia. La nostra risposta è la <strong>disconnessione consapevole</strong>: un invito a mettere da parte i dispositivi per recuperare una reale presenza a noi stessi e agli altri, vivendo pienamente il <em class="text-hestia-dark font-medium">"qui e ora"</em>.
-                        </p>
-                        <p>
-                            Attraverso attività ludiche, formative e creative, affianchiamo la scuola e le famiglie offrendo ai ragazzi uno spazio in cui diventare protagonisti attivi del proprio percorso.
-                        </p>
+                        <p id="chisiamo-p1">Loading...</p>
+                        <p id="chisiamo-p2">Loading...</p>
+                        <p id="chisiamo-p3">Loading...</p>
                     </div>
 
-                    <!-- FOTO DEGLI ANIMATORI DEL CAMPO (AL POSTO DEL VECCHIO BOX) -->
                     <div class="relative group">
-                        <div class="bg-amber-50 p-4 sm:p-5 rounded-3xl border border-amber-200/80 shadow-md transition-all group-hover:shadow-lg">
+                        <div class="bg-amber-50 p-4 sm:p-5 rounded-3xl border border-amber-200/80 shadow-md">
                             <div class="overflow-hidden rounded-2xl relative aspect-[4/3]">
-                                <img src="IMG_5125.png" alt="Gli animatori del campo Hestía" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/A81C1C/FFFFFF?text=Animatori+Campo+Hestia';">
+                                <img src="IMG_5125.jpg" alt="Gli animatori del campo Hestía" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/A81C1C/FFFFFF?text=Animatori+Campo+Hestia';">
                             </div>
                             <div class="pt-4 px-2 text-center">
                                 <h4 class="font-bold text-hestia-dark text-base sm:text-lg flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-users text-hestia-red"></i> Gli Animatori del Campo
                                 </h4>
-                                <p class="text-hestia-gray text-xs sm:text-sm mt-1">Il cuore pulsante dell'associazione: giovani coordinatori e volontari dedicati ai ragazzi.</p>
+                                <p class="text-hestia-gray text-xs sm:text-sm mt-1">Il cuore pulsante dell'associazione: giovani coordinatori e volontari.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECONDA PARTE (SOTTO): PERCHÉ "HESTÍA"? -->
-                <div class="bg-hestia-light p-8 sm:p-12 rounded-3xl border border-amber-200/60 shadow-sm relative overflow-hidden">
-                    <div class="max-w-4xl mx-auto space-y-6 relative z-10">
+                <div class="bg-hestia-light p-8 sm:p-12 rounded-3xl border border-amber-200/60 shadow-sm">
+                    <div class="max-w-4xl mx-auto space-y-6">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-2xl bg-red-100 text-hestia-red flex items-center justify-center text-2xl font-bold">
                                 <i class="fa-solid fa-fire-burner"></i>
                             </div>
-                            <h3 class="text-2xl sm:text-3xl font-extrabold text-hestia-dark">Perché "Hestía"?</h3>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-hestia-dark" id="perche-titolo">Perché "Hestía"?</h3>
                         </div>
 
-                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed">
-                            Il nome dell'associazione si ispira ad <strong>Hestía</strong>, la dea greca custode del focolare domestico.
-                        </p>
-                        
-                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed">
-                            Per noi rappresenta l'ideale traduzione del <strong>fuoco e del falò attorno al quale concludiamo da sempre i nostri campi estivi</strong>: un simbolo di calore, riparo e condivisione. È la metafora perfetta della comunità coesa, accogliente e viva che costruiamo giorno per giorno insieme con i nostri progetti.
-                        </p>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-amber-200/80">
-                            <div class="p-4 bg-white rounded-2xl shadow-sm border border-amber-100/80 text-center space-y-1">
-                                <div class="text-3xl font-extrabold text-hestia-red">100%</div>
-                                <div class="text-sm font-semibold text-hestia-dark">Presenza e Relazione</div>
-                                <p class="text-xs text-hestia-gray">Connessioni vere sul campo e nella quotidianità</p>
-                            </div>
-                            <div class="p-4 bg-white rounded-2xl shadow-sm border border-amber-100/80 text-center space-y-1">
-                                <div class="text-3xl font-extrabold text-hestia-yellow">0%</div>
-                                <div class="text-sm font-semibold text-hestia-dark">Barriere d'Età</div>
-                                <p class="text-xs text-hestia-gray">Spazio aperto a bambini, ragazzi e genitori</p>
-                            </div>
-                        </div>
+                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed" id="perche-p1">Loading...</p>
+                        <p class="text-hestia-gray text-base sm:text-lg leading-relaxed" id="perche-p2">Loading...</p>
                     </div>
                 </div>
 
@@ -239,200 +195,33 @@
         </section>
 
         <!-- ATTIVITÀ SECTION -->
-        <section id="attivita" class="py-20 bg-hestia-light relative">
+        <section id="attivita" class="py-20 bg-hestia-light">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Le Nostre Iniziative</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Cosa Facciamo</h2>
-                    <p class="text-hestia-gray mt-4 text-lg">Esperienze sul campo, momenti di formazione e spazi di condivisione intergenerazionale.</p>
                     <div class="w-20 h-1 bg-hestia-red mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
-                        <div class="h-48 bg-gradient-to-br from-red-800 to-hestia-red p-6 text-white flex flex-col justify-between relative overflow-hidden">
-                            <i class="fa-solid fa-campground text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
-                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Estate & Soggiorni</span>
-                            <h3 class="text-2xl font-bold">Campi Estivi & Soggiorni</h3>
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
-                            <p class="text-hestia-gray text-sm leading-relaxed">
-                                Soggiorni gestiti da volontari dedicati a bambini e ragazzi. Momenti di riflessione, laboratori tematici e grandi giochi per favorire la socializzazione, l'autonomia e la crescita in un contesto di natura e disconnessione digitale.
-                            </p>
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
-                                <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> Tradizione del Falò</span>
-                                <span class="text-hestia-gray">Bambini e Ragazzi</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
-                        <div class="h-48 bg-gradient-to-br from-amber-600 to-hestia-yellow p-6 text-white flex flex-col justify-between relative overflow-hidden">
-                            <i class="fa-solid fa-people-roof text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
-                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Incontro & Dialogo</span>
-                            <h3 class="text-2xl font-bold">Incontri Intergenerazionali</h3>
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
-                            <p class="text-hestia-gray text-sm leading-relaxed">
-                                Laboratori e momenti di scambio dove giovani, genitori e adulti condividono esperienze, competenze e visioni. Spazi di dialogo volti a sviluppare empatiche competenze sociali ed emotive.
-                            </p>
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
-                                <span><i class="fa-solid fa-comments text-hestia-yellow mr-1"></i> Dialogo Aperto</span>
-                                <span class="text-hestia-gray">Tutte le Età</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-amber-100 flex flex-col">
-                        <div class="h-48 bg-gradient-to-br from-neutral-800 to-hestia-dark p-6 text-white flex flex-col justify-between relative overflow-hidden">
-                            <i class="fa-solid fa-graduation-cap text-7xl absolute -right-2 -bottom-2 opacity-20"></i>
-                            <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full w-max font-medium">Formazione</span>
-                            <h3 class="text-2xl font-bold">Attività Extrascolastiche</h3>
-                        </div>
-                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
-                            <p class="text-hestia-gray text-sm leading-relaxed">
-                                Percorsi educativi integrativi volti alla prevenzione del bullismo e della dispersione scolastica. Laboratori creativi e ricreativi pensati per valorizzare il talento e il protagonismo dei più giovani.
-                            </p>
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium">
-                                <span><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Protagonismo Giovanile</span>
-                                <span class="text-hestia-gray">Giovani</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GALLERIA SOGGIORNI E CAMPI -->
-                <div class="mt-16 bg-white p-8 rounded-3xl border border-amber-100 shadow-sm">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-hestia-dark">I nostri momenti sul campo</h3>
-                            <p class="text-hestia-gray text-sm">Estratti dalle nostre attività, escursioni e sere attorno al focolare.</p>
-                        </div>
-                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-hestia-red font-semibold hover:underline">
-                            Vedi più foto su Instagram <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
-                            <img src="IMG_5125.png" alt="Foto di gruppo Animatori Hestía" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
-                                <span class="text-white text-xs font-medium">Gli animatori del campo</span>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=600&q=80" alt="Falò serale" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
-                                <span class="text-white text-xs font-medium">Il falò serale di fine campo</span>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=600&q=80" alt="Escursioni e Natura" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
-                                <span class="text-white text-xs font-medium">Camminate ed escursioni</span>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-amber-100 rounded-2xl overflow-hidden relative group cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Laboratori creativi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex items-end">
-                                <span class="text-white text-xs font-medium">Laboratori e condivisione</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INSTAGRAM BANNER SECTION -->
-        <section class="py-12 bg-gradient-to-r from-purple-900 via-pink-800 to-red-900 text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-4 text-center sm:text-left">
-                    <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shrink-0 mx-auto sm:mx-0">
-                        <i class="fa-brands fa-instagram text-3xl text-amber-300"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold">Rimani aggiornato su Instagram</h3>
-                        <p class="text-white/80 text-sm">Segui le nostre storie, gli eventi in programma e le foto dei campi estivi su <strong>@associazionehestia</strong></p>
-                    </div>
-                </div>
-                <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white text-pink-900 font-bold rounded-xl shadow-lg hover:bg-amber-50 transition-colors shrink-0">
-                    Seguici Ora <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- STATUTO E VALORI SECTION -->
-        <section id="statuto" class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Trasparenza & Struttura</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Iscrizione & Finalità Statutarie</h2>
-                    <p class="text-hestia-gray mt-3">L'Associazione Hestía opera secondo il Codice del Terzo Settore (D. Lgs. 117/2017)</p>
-                    <div class="w-20 h-1 bg-hestia-yellow mx-auto mt-4 rounded-full"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
-                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-scale-balanced"></i></div>
-                        <h4 class="font-bold text-hestia-dark text-lg">Ente del Terzo Settore</h4>
-                        <p class="text-hestia-gray text-sm leading-relaxed">Associazione di Promozione Sociale (APS) apartitica, aconfessionale e senza scopo di lucro.</p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
-                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                        <h4 class="font-bold text-hestia-dark text-lg">Volontariato Attivo</h4>
-                        <p class="text-hestia-gray text-sm leading-relaxed">Avvalendosi in modo prevalente delle prestazioni personali, spontanee e gratuite dei propri associati.</p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
-                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-handshake"></i></div>
-                        <h4 class="font-bold text-hestia-dark text-lg">Supporto agli ETS</h4>
-                        <p class="text-hestia-gray text-sm leading-relaxed">Consulenza e progettazione di soggiorni ed esperienze educative anche per altri Enti del Terzo Settore.</p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-hestia-light border border-amber-100 space-y-3">
-                        <div class="text-hestia-red text-2xl"><i class="fa-solid fa-door-open"></i></div>
-                        <h4 class="font-bold text-hestia-dark text-lg">Ammissione Soci</h4>
-                        <p class="text-hestia-gray text-sm leading-relaxed">Aperta a tutte le persone fisiche e minori (con firma dell'esercente la potestà) che ne condividano i principi.</p>
-                    </div>
-                </div>
-
-                <!-- Dati di Trasparenza -->
-                <div class="mt-12 bg-amber-50/60 p-6 rounded-2xl border border-amber-200/60 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-hestia-gray">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-building text-hestia-red text-xl"></i>
-                        <div>
-                            <span class="font-bold text-hestia-dark">Sede Legale:</span> Via Vandalino n. 43, Collegno (TO)
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-certificate text-hestia-yellow text-xl"></i>
-                        <div>
-                            <span class="font-bold text-hestia-dark">Ambito Territoriale:</span> Torino, Regione Piemonte e Nazionale
-                        </div>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="attivita-container">
+                    <!-- Le schede verranno inserite qui da JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- CONTATTI SECTION -->
-        <section id="contatti" class="py-20 bg-hestia-light relative">
+        <section id="contatti" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-hestia-red font-semibold text-sm tracking-wider uppercase">Mettiti in Contatto</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-hestia-dark mt-2">Unisciti al Focolare Hestía</h2>
-                    <p class="text-hestia-gray mt-3">Vuoi partecipare alle attività, richiedere informazioni o diventare socio?</p>
                     <div class="w-20 h-1 bg-hestia-red mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    <!-- Info Contatto -->
                     <div class="lg:col-span-5 space-y-8">
-                        <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm space-y-6">
-                            <h3 class="text-xl font-bold text-hestia-dark border-b border-gray-100 pb-4">Recapiti Ufficiali</h3>
+                        <div class="bg-hestia-light p-8 rounded-3xl border border-amber-100 space-y-6">
+                            <h3 class="text-xl font-bold text-hestia-dark border-b border-gray-200 pb-4">Recapiti Ufficiali</h3>
                             
                             <div class="space-y-4 text-sm">
                                 <div class="flex items-start gap-4">
@@ -441,7 +230,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold text-hestia-dark">Sede Legale</h4>
-                                        <p class="text-hestia-gray">Via Vandalino, 43<br>10093 Collegno (TO)</p>
+                                        <p class="text-hestia-gray" id="contatti-sede">Loading...</p>
                                     </div>
                                 </div>
 
@@ -451,73 +240,21 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold text-hestia-dark">Instagram</h4>
-                                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="text-hestia-red hover:underline">
-                                            @associazionehestia
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-hestia-yellow flex items-center justify-center shrink-0 font-bold">
-                                        <i class="fa-solid fa-envelope"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-hestia-dark">Email</h4>
-                                        <p class="text-hestia-gray">info@associazionehestia.it</p>
+                                        <a id="contatti-ig-link" href="#" target="_blank" class="text-hestia-red hover:underline">@associazionehestia</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card Unisciti a noi -->
-                        <div class="gradient-fire p-8 rounded-3xl text-white shadow-lg space-y-4">
-                            <h3 class="text-xl font-bold">Diventa Volontario o Socio</h3>
-                            <p class="text-white/90 text-sm leading-relaxed">
-                                Se credi nel valore della presenza, nel dialogo tra generazioni e vuoi proporre nuove idee per i giovani, c'è sempre un posto per te attorno al nostro fuoco.
-                            </p>
-                        </div>
                     </div>
 
-                    <!-- Form di Contatto -->
                     <div class="lg:col-span-7">
-                        <div class="bg-white p-8 sm:p-10 rounded-3xl border border-amber-100 shadow-sm">
+                        <div class="bg-hestia-light p-8 rounded-3xl border border-amber-100">
                             <h3 class="text-2xl font-bold text-hestia-dark mb-6">Invia un messaggio</h3>
-                            
-                            <form id="contact-form" class="space-y-5" onsubmit="event.preventDefault(); alert('Grazie per il messaggio! Ti risponderemo al più presto.');">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div>
-                                        <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Nome e Cognome *</label>
-                                        <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="Mario Rossi">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Email *</label>
-                                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="mario@esempio.it">
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Motivo della richiesta</label>
-                                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all text-hestia-gray">
-                                        <option>Richiesta Informazioni generali</option>
-                                        <option>Iscrizione o Partecipazione ai Campi Estivi</option>
-                                        <option>Diventare Socio / Volontario</option>
-                                        <option>Collaborazione per Enti del Terzo Settore</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-bold text-hestia-dark uppercase tracking-wider mb-2">Messaggio *</label>
-                                    <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hestia-red focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" placeholder="Scrivi qui il tuo messaggio..."></textarea>
-                                </div>
-
-                                <div class="flex items-center gap-2">
-                                    <input type="checkbox" id="privacy" required class="rounded text-hestia-red focus:ring-hestia-red">
-                                    <label for="privacy" class="text-xs text-hestia-gray">Acconsento al trattamento dei dati personali ai sensi della Privacy Policy.</label>
-                                </div>
-
-                                <button type="submit" class="w-full py-4 bg-hestia-red hover:bg-hestia-redlight text-white font-bold rounded-xl shadow-md transition-all">
-                                    Invia Messaggio
-                                </button>
+                            <form onsubmit="event.preventDefault(); alert('Messaggio inviato!');" class="space-y-4">
+                                <input type="text" required class="w-full px-4 py-3 rounded-xl border outline-none text-sm" placeholder="Nome e Cognome">
+                                <input type="email" required class="w-full px-4 py-3 rounded-xl border outline-none text-sm" placeholder="Email">
+                                <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border outline-none text-sm" placeholder="Messaggio"></placeholder></textarea>
+                                <button type="submit" class="w-full py-3.5 bg-hestia-red text-white font-bold rounded-xl">Invia</button>
                             </form>
                         </div>
                     </div>
@@ -527,64 +264,56 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-hestia-dark text-white pt-16 pb-12 border-t border-neutral-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">
-                <div class="md:col-span-5 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <img src="logoHestia.png" alt="Logo Hestia" class="h-10 w-auto filter brightness-0 invert" onerror="this.onerror=null; this.src='https://via.placeholder.com/100x100/FFFFFF/000000?text=HESTIA';">
-                        <span class="font-bold text-2xl tracking-tight">HESTÍA <span class="text-hestia-yellow text-xs">APS</span></span>
-                    </div>
-                    <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">
-                        Spazio di crescita personale intergenerazionale. Coltiviamo la presenza reale, la relazione e il protagonismo giovanile oltre la scuola e la famiglia.
-                    </p>
-                    <div class="flex items-center gap-3 pt-2">
-                        <a href="https://www.instagram.com/associazionehestia/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-neutral-800 hover:bg-gradient-to-tr hover:from-yellow-500 hover:to-purple-600 flex items-center justify-center text-white transition-colors">
-                            <i class="fa-brands fa-instagram text-lg"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-3 space-y-3">
-                    <h4 class="font-bold text-sm uppercase tracking-wider text-hestia-yellow">Link Rapidi</h4>
-                    <ul class="space-y-2 text-sm text-neutral-400">
-                        <li><a href="#chi-siamo" class="hover:text-white transition-colors">Chi Siamo</a></li>
-                        <li><a href="#attivita" class="hover:text-white transition-colors">Attività & Campi</a></li>
-                        <li><a href="#statuto" class="hover:text-white transition-colors">Statuto & Valori</a></li>
-                        <li><a href="#contatti" class="hover:text-white transition-colors">Contatti & Adesioni</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-4 space-y-3 text-sm text-neutral-400">
-                    <h4 class="font-bold text-sm uppercase tracking-wider text-hestia-yellow">Sede Legale</h4>
-                    <p>Associazione Hestía APS</p>
-                    <p>Via Vandalino n. 43 - 10093 Collegno (TO)</p>
-                    <p class="text-xs text-neutral-500 pt-2">Ente del Terzo Settore iscritto nel rispetto del D. Lgs. 117/2017</p>
-                </div>
-            </div>
-
-            <div class="pt-8 text-center sm:flex sm:justify-between sm:text-left text-xs text-neutral-500">
-                <p>&copy; 2026 Associazione Hestía APS. Tutti i diritti riservati.</p>
-                <p class="mt-2 sm:mt-0">Sito web realizzato per la promozione sociale e giovanile.</p>
-            </div>
-        </div>
+    <footer class="bg-hestia-dark text-white py-10 text-center text-xs text-neutral-400">
+        <p>&copy; 2026 Associazione Hestía APS. Tutti i diritti riservati.</p>
     </footer>
 
-    <!-- JAVASCRIPT FOR MOBILE MENU & SMOOTH SCROLL -->
+    <!-- SCRIPT DINAMICO CHE LEGGE IL FILE JSON -->
     <script>
+        fetch('dati.json')
+            .then(response => response.json())
+            .then(data => {
+                // Popola Hero & Associazione
+                document.getElementById('header-tipologia').innerText = data.associazione.tipologia;
+                document.getElementById('hero-badge').innerText = data.associazione.tipologia;
+                document.getElementById('hero-submotto').innerText = data.associazione.submotto;
+                document.getElementById('hero-fiamma').innerText = data.associazione.laNostraFiamma;
+                document.getElementById('btn-instagram').href = data.associazione.instagramUrl;
+                document.getElementById('contatti-ig-link').href = data.associazione.instagramUrl;
+                document.getElementById('contatti-sede').innerText = data.associazione.sedeLegale;
+
+                // Popola Chi Siamo
+                document.getElementById('chisiamo-titolo').innerText = data.chiSiamo.titolo;
+                document.getElementById('chisiamo-sottotitolo').innerText = data.chiSiamo.sottotitolo;
+                document.getElementById('chisiamo-p1').innerText = data.chiSiamo.paragrafo1;
+                document.getElementById('chisiamo-p2').innerText = data.chiSiamo.paragrafo2;
+                document.getElementById('chisiamo-p3').innerText = data.chiSiamo.paragrafo3;
+                document.getElementById('perche-titolo').innerText = data.chiSiamo.percheHestia.titolo;
+                document.getElementById('perche-p1').innerText = data.chiSiamo.percheHestia.testo1;
+                document.getElementById('perche-p2').innerText = data.chiSiamo.percheHestia.testo2;
+
+                // Popola Attività
+                const container = document.getElementById('attivita-container');
+                container.innerHTML = '';
+                data.attivita.forEach(att => {
+                    container.innerHTML += `
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col p-6 space-y-4">
+                            <span class="bg-amber-100 text-hestia-red text-xs px-3 py-1 rounded-full w-max font-semibold">${att.badge}</span>
+                            <h3 class="text-2xl font-bold text-hestia-dark">${att.titolo}</h3>
+                            <p class="text-hestia-gray text-sm leading-relaxed">${att.descrizione}</p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium mt-auto">
+                                <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> ${att.tag}</span>
+                                <span class="text-hestia-gray">${att.target}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            })
+            .catch(error => console.error('Errore nel caricamento dei dati JSON:', error));
+
         // Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
     </script>
 </body>
