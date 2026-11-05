@@ -1,0 +1,40 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images" # Dove verranno salvate le immagini caricate da admin
+public_folder: "/images"
+
+collections:
+  - name: "contenuti"
+    label: "Contenuti Sito Web"
+    files:
+      - file: "dati.json"
+        label: "Testi e Informazioni Principali"
+        name: "dati"
+        fields:
+          - { label: "Nome Associazione", name: "associazione.nome", widget: "string" }
+          - { label: "Tipologia Ente", name: "associazione.tipologia", widget: "string" }
+          - { label: "Slogan / Motto", name: "associazione.motto", widget: "string" }
+          - { label: "Sottotitolo Hero", name: "associazione.submotto", widget: "text" }
+          - { label: "Testo 'La nostra fiamma'", name: "associazione.laNostraFiamma", widget: "text" }
+          - { label: "Sede Legale", name: "associazione.sedeLegale", widget: "string" }
+          - { label: "Link Instagram", name: "associazione.instagramUrl", widget: "string" }
+
+          - { label: "Titolo Chi Siamo", name: "chiSiamo.sottotitolo", widget: "string" }
+          - { label: "Chi Siamo - Paragrafo 1", name: "chiSiamo.paragrafo1", widget: "text" }
+          - { label: "Chi Siamo - Paragrafo 2", name: "chiSiamo.paragrafo2", widget: "text" }
+          - { label: "Chi Siamo - Paragrafo 3", name: "chiSiamo.paragrafo3", widget: "text" }
+
+          - { label: "Spiegazione 'Perché Hestía' - Parte 1", name: "chiSiamo.percheHestia.testo1", widget: "text" }
+          - { label: "Spiegazione 'Perché Hestía' - Parte 2", name: "chiSiamo.percheHestia.testo2", widget: "text" }
+
+          - label: "Elenco Attività"
+            name: "attivita"
+            widget: "list"
+            fields:
+              - { label: "Titolo Attività", name: "titolo", widget: "string" }
+              - { label: "Badge / Categoria", name: "badge", widget: "string" }
+              - { label: "Descrizione", name: "descrizione", widget: "text" }
+              - { label: "Tag Principale", name: "tag", widget: "string" }
+              - { label: "Target (es. Giovani, Bambini)", name: "target", widget: "string" }
