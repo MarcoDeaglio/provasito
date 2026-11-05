@@ -14,7 +14,26 @@
       "target": "#giovani"
     }
   ],
+  "chiSiamo": {
+    "sottotitolo": "ciao a tutti",
+    "paragrafo1": "come va tutto bene?",
+    "paragrafo2": "sicuri?",
+    "paragrafo3": "sicuri sicuri?",
+    "percheHestia": {
+      "testo1": "--",
+      "testo2": "--"
+    }
+  },
   "associazione.motto": "--",
+  "associazione": {
+    "nome": "pippo",
+    "tipologia": "pippolandia",
+    "motto": "ciao sono pippo",
+    "submotto": "con pippo e in pippo",
+    "laNostraFiamma": "ciao capo come va la vita",
+    "sedeLegale": "cocco",
+    "instagramUrl": "https://gemini.google.com/app/3fa30b75f3c963e1?hl=it"
+  },
   "associazione.laNostraFiamma": "--",
   "associazione.submotto": "--",
   "chiSiamo.paragrafo1": "--",
