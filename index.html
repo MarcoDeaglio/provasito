@@ -272,16 +272,17 @@
 <script>
     const datiDefault = {
         associazione: {
+            nome: "HESTÍA APS",
             tipologia: "Associazione di Promozione Sociale",
-            submotto: "Uno spazio di crescita personale e intergenerazionale...",
-            laNostraFiamma: "Ci stacchiamo dal flusso costante del digitale...",
+            submotto: "Uno spazio di crescita personale e intergenerazionale che attraverso il gioco, la creatività e la formazione amplia l'educazione dei giovani oltre la scuola e la famiglia.",
+            laNostraFiamma: "Ci stacchiamo dal flusso costante del digitale per creare connessioni reali con le persone e il contesto circostante. Essere presenti qui e ora, insieme.",
             sedeLegale: "Via Vandalino, 43 - 10093 Collegno (TO)",
             instagramUrl: "https://www.instagram.com/associazionehestia/"
         },
         chiSiamo: {
             sottotitolo: "Dalla necessità dei giovani al fuoco della comunità",
             paragrafo1: "L'Associazione Hestía APS nasce dall'iniziativa di un gruppo di giovani...",
-            paragrafo2: "Viviamo in un'epoca dominata dalla comunicazione...",
+            paragrafo2: "Viviamo in un'epoca dominata dalla comunicazione costante...",
             paragrafo3: "Attraverso attività ludiche, formative e creative...",
             fotoAnimatori: "IMG_5125.jpg",
             percheHestia: {
@@ -302,64 +303,61 @@
     };
 
     function applicaDati(data) {
-        if (!data) return;
+        let d = data;
+        if (data && data.dati) d = data.dati;
+        if (!d || !d.associazione) d = datiDefault;
 
-        // Estrazione Dati Associazione
-        const tipologia = data["associazione.tipologia"] || data.associazione?.tipologia || datiDefault.associazione.tipologia;
-        const submotto = data["associazione.submotto"] || data.associazione?.submotto || datiDefault.associazione.submotto;
-        const laNostraFiamma = data["associazione.laNostraFiamma"] || data.associazione?.laNostraFiamma || datiDefault.associazione.laNostraFiamma;
-        const instagramUrl = data["associazione.instagramUrl"] || data.associazione?.instagramUrl || datiDefault.associazione.instagramUrl;
-        const sedeLegale = data["associazione.sedeLegale"] || data.associazione?.sedeLegale || datiDefault.associazione.sedeLegale;
+        // Estrazione dati sicura
+        const tipologia = d.associazione?.tipologia || d["associazione.tipologia"] || datiDefault.associazione.tipologia;
+        const submotto = d.associazione?.submotto || d["associazione.submotto"] || datiDefault.associazione.submotto;
+        const laNostraFiamma = d.associazione?.laNostraFiamma || d["associazione.laNostraFiamma"] || datiDefault.associazione.laNostraFiamma;
+        const instagramUrl = d.associazione?.instagramUrl || d["associazione.instagramUrl"] || datiDefault.associazione.instagramUrl;
+        const sedeLegale = d.associazione?.sedeLegale || d["associazione.sedeLegale"] || datiDefault.associazione.sedeLegale;
 
-        // Estrazione Dati Chi Siamo
-        const chiSiamoSottotitolo = data["chiSiamo.sottotitolo"] || data.chiSiamo?.sottotitolo || datiDefault.chiSiamo.sottotitolo;
-        const p1 = data["chiSiamo.paragrafo1"] || data.chiSiamo?.paragrafo1 || datiDefault.chiSiamo.paragrafo1;
-        const p2 = data["chiSiamo.paragrafo2"] || data.chiSiamo?.paragrafo2 || datiDefault.chiSiamo.paragrafo2;
-        const p3 = data["chiSiamo.paragrafo3"] || data.chiSiamo?.paragrafo3 || datiDefault.chiSiamo.paragrafo3;
-        const fotoAnimatori = data["chiSiamo.fotoAnimatori"] || data.chiSiamo?.fotoAnimatori || datiDefault.chiSiamo.fotoAnimatori;
+        const chiSiamoSottotitolo = d.chiSiamo?.sottotitolo || d["chiSiamo.sottotitolo"] || datiDefault.chiSiamo.sottotitolo;
+        const p1 = d.chiSiamo?.paragrafo1 || d["chiSiamo.paragrafo1"] || datiDefault.chiSiamo.paragrafo1;
+        const p2 = d.chiSiamo?.paragrafo2 || d["chiSiamo.paragrafo2"] || datiDefault.chiSiamo.paragrafo2;
+        const p3 = d.chiSiamo?.paragrafo3 || d["chiSiamo.paragrafo3"] || datiDefault.chiSiamo.paragrafo3;
+        const fotoAnimatori = d.chiSiamo?.fotoAnimatori || d["chiSiamo.fotoAnimatori"] || datiDefault.chiSiamo.fotoAnimatori;
 
-        const percheTesto1 = data["chiSiamo.percheHestia.testo1"] || data.chiSiamo?.percheHestia?.testo1 || datiDefault.chiSiamo.percheHestia.testo1;
-        const percheTesto2 = data["chiSiamo.percheHestia.testo2"] || data.chiSiamo?.percheHestia?.testo2 || datiDefault.chiSiamo.percheHestia.testo2;
+        const percheTesto1 = d.chiSiamo?.percheHestia?.testo1 || d["chiSiamo.percheHestia.testo1"] || datiDefault.chiSiamo.percheHestia.testo1;
+        const percheTesto2 = d.chiSiamo?.percheHestia?.testo2 || d["chiSiamo.percheHestia.testo2"] || datiDefault.chiSiamo.percheHestia.testo2;
 
-        // Inserimento nei testi HTML
-        document.getElementById('header-tipologia').innerText = (tipologia !== "--") ? tipologia : datiDefault.associazione.tipologia;
-        document.getElementById('hero-badge').innerText = (tipologia !== "--") ? tipologia : datiDefault.associazione.tipologia;
-        document.getElementById('hero-submotto').innerText = (submotto !== "--") ? submotto : datiDefault.associazione.submotto;
-        document.getElementById('hero-fiamma').innerText = (laNostraFiamma !== "--") ? laNostraFiamma : datiDefault.associazione.laNostraFiamma;
-        document.getElementById('btn-instagram').href = (instagramUrl !== "--") ? instagramUrl : datiDefault.associazione.instagramUrl;
-        document.getElementById('contatti-ig-link').href = (instagramUrl !== "--") ? instagramUrl : datiDefault.associazione.instagramUrl;
-        document.getElementById('contatti-sede').innerText = (sedeLegale !== "--") ? sedeLegale : datiDefault.associazione.sedeLegale;
+        // Popola HTML
+        document.getElementById('header-tipologia').innerText = tipologia;
+        document.getElementById('hero-badge').innerText = tipologia;
+        document.getElementById('hero-submotto').innerText = submotto;
+        document.getElementById('hero-fiamma').innerText = laNostraFiamma;
+        document.getElementById('btn-instagram').href = instagramUrl;
+        document.getElementById('contatti-ig-link').href = instagramUrl;
+        document.getElementById('contatti-sede').innerText = sedeLegale;
 
-        document.getElementById('chisiamo-sottotitolo').innerText = (chiSiamoSottotitolo !== "--") ? chiSiamoSottotitolo : datiDefault.chiSiamo.sottotitolo;
-        document.getElementById('chisiamo-p1').innerText = (p1 !== "--") ? p1 : datiDefault.chiSiamo.paragrafo1;
-        document.getElementById('chisiamo-p2').innerText = (p2 !== "--") ? p2 : datiDefault.chiSiamo.paragrafo2;
-        document.getElementById('chisiamo-p3').innerText = (p3 !== "--") ? p3 : datiDefault.chiSiamo.paragrafo3;
-        document.getElementById('perche-p1').innerText = (percheTesto1 !== "--") ? percheTesto1 : datiDefault.chiSiamo.percheHestia.testo1;
-        document.getElementById('perche-p2').innerText = (percheTesto2 !== "--") ? percheTesto2 : datiDefault.chiSiamo.percheHestia.testo2;
+        document.getElementById('chisiamo-sottotitolo').innerText = chiSiamoSottotitolo;
+        document.getElementById('chisiamo-p1').innerText = p1;
+        document.getElementById('chisiamo-p2').innerText = p2;
+        document.getElementById('chisiamo-p3').innerText = p3;
+        document.getElementById('perche-p1').innerText = percheTesto1;
+        document.getElementById('perche-p2').innerText = percheTesto2;
 
-        // ASSOCIAZIONE FOTO ANIMATORI
+        // Foto Animatori
         const imgAnimatori = document.querySelector('#chi-siamo img');
-        if (imgAnimatori && fotoAnimatori) {
-            imgAnimatori.src = fotoAnimatori;
-        }
+        if (imgAnimatori && fotoAnimatori) imgAnimatori.src = fotoAnimatori;
 
-        // RENDER ATTIVITÀ CON FOTO COLLEGATA ALLA SCRITTA
+        // Render Attività con immagini
         const container = document.getElementById('attivita-container');
-        const listaAttivita = data.attivita || datiDefault.attivita;
+        const listaAttivita = d.attivita || datiDefault.attivita;
         if (container && Array.isArray(listaAttivita)) {
             container.innerHTML = '';
             listaAttivita.forEach(att => {
-                const imgSrc = att.immagine || 'IMG_5125.jpg'; // Foto predefinita se manca
+                const imgSrc = att.immagine || 'IMG_5125.jpg';
                 container.innerHTML += `
                     <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col hover:shadow-md transition-shadow">
-                        <!-- Foto associata all'attività -->
                         <div class="h-48 overflow-hidden relative">
-                            <img src="${imgSrc}" alt="${att.titolo || 'Attività'}" class="w-full h-full object-cover">
+                            <img src="${imgSrc}" alt="${att.titolo || ''}" class="w-full h-full object-cover">
                             <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-hestia-red text-xs px-3 py-1 rounded-full font-bold shadow">
                                 ${att.badge || ''}
                             </span>
                         </div>
-                        <!-- Testo dell'attività -->
                         <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
                             <div>
                                 <h3 class="text-2xl font-bold text-hestia-dark mb-2">${att.titolo || ''}</h3>
@@ -383,7 +381,7 @@
         })
         .then(data => applicaDati(data))
         .catch(err => {
-            console.warn("Utilizzo dati di default:", err);
+            console.warn("Utilizzo dati predefiniti:", err);
             applicaDati(datiDefault);
         });
 
