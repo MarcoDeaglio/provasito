@@ -11,7 +11,8 @@
       "badge": "intrattenimento",
       "descrizione": "ciao siamo piccoli ma ci piace andare ad vendere ",
       "tag": "#zucca",
-      "target": "#giovani"
+      "target": "#giovani",
+      "immagine": "/images/logoHestia.png"
     }
   ],
   "chiSiamo": {
@@ -22,7 +23,8 @@
     "percheHestia": {
       "testo1": "--",
       "testo2": "--"
-    }
+    },
+    "fotoAnimatori": "/images/IMG_5125.JPG"
   },
   "associazione.motto": "--",
   "associazione": {
