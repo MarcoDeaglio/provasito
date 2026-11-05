@@ -10,10 +10,11 @@ collections:
     label: "Contenuti Sito Web"
     files:
       - file: "dati.json"
-        label: "Tutti i Testi del Sito"
+        label: "Tutti i Testi e Foto del Sito"
         name: "dati"
         format: "json"
         fields:
+          # ASSOCIAZIONE
           - label: "Associazione"
             name: "associazione"
             widget: "object"
@@ -26,7 +27,8 @@ collections:
               - { label: "Sede Legale", name: "sedeLegale", widget: "string" }
               - { label: "Link Instagram", name: "instagramUrl", widget: "string" }
 
-          - label: "Chi Siamo"
+          # CHI SIAMO & FOTO ANIMATORI
+          - label: "Chi Siamo & Foto Gruppo"
             name: "chiSiamo"
             widget: "object"
             fields:
@@ -34,6 +36,7 @@ collections:
               - { label: "Paragrafo 1", name: "paragrafo1", widget: "text" }
               - { label: "Paragrafo 2", name: "paragrafo2", widget: "text" }
               - { label: "Paragrafo 3", name: "paragrafo3", widget: "text" }
+              - { label: "Foto Gruppo Animatori", name: "fotoAnimatori", widget: "image" } # <--- CAMPO FOTO CHI SIAMO
               - label: "Perché Hestía"
                 name: "percheHestia"
                 widget: "object"
@@ -41,12 +44,14 @@ collections:
                   - { label: "Testo 1", name: "testo1", widget: "text" }
                   - { label: "Testo 2", name: "testo2", widget: "text" }
 
+          # ATTIVITÀ CON FOTO DEDICATA
           - label: "Elenco Attività"
             name: "attivita"
             widget: "list"
             fields:
-              - { label: "Titolo", name: "titolo", widget: "string" }
-              - { label: "Badge", name: "badge", widget: "string" }
+              - { label: "Titolo Attività", name: "titolo", widget: "string" }
+              - { label: "Badge / Categoria", name: "badge", widget: "string" }
               - { label: "Descrizione", name: "descrizione", widget: "text" }
-              - { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Foto dell'Attività", name: "immagine", widget: "image" } # <--- CAMPO FOTO PER OGNI ATTIVITÀ
+              - { label: "Tag Principale", name: "tag", widget: "string" }
               - { label: "Target", name: "target", widget: "string" }
