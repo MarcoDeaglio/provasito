@@ -302,77 +302,91 @@
         ]
     };
 
-    function applicaDati(data) {
-        let d = data;
-        if (data && data.dati) d = data.dati;
-        if (!d || !d.associazione) d = datiDefault;
+    function aggiustaPercorsoFoto(path) {
+    if (!path) return 'IMG_5125.jpg'; // Immagine di fallback di default
+    // Se è un URL completo (http://...) lo lascia così com'è
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    // Rimuove l'eventuale slash iniziale '/' per renderlo un percorso relativo sicuro
+    if (path.startsWith('/')) return '.' + path;
+    return './' + path;
+}
+    
+   function applicaDati(data) {
+    let d = data;
+    if (data && data.dati) d = data.dati;
+    if (!d || !d.associazione) d = datiDefault;
 
-        // Estrazione dati sicura
-        const tipologia = d.associazione?.tipologia || d["associazione.tipologia"] || datiDefault.associazione.tipologia;
-        const submotto = d.associazione?.submotto || d["associazione.submotto"] || datiDefault.associazione.submotto;
-        const laNostraFiamma = d.associazione?.laNostraFiamma || d["associazione.laNostraFiamma"] || datiDefault.associazione.laNostraFiamma;
-        const instagramUrl = d.associazione?.instagramUrl || d["associazione.instagramUrl"] || datiDefault.associazione.instagramUrl;
-        const sedeLegale = d.associazione?.sedeLegale || d["associazione.sedeLegale"] || datiDefault.associazione.sedeLegale;
+    // Estrazione dati sicura
+    const tipologia = d.associazione?.tipologia || d["associazione.tipologia"] || datiDefault.associazione.tipologia;
+    const submotto = d.associazione?.submotto || d["associazione.submotto"] || datiDefault.associazione.submotto;
+    const laNostraFiamma = d.associazione?.laNostraFiamma || d["associazione.laNostraFiamma"] || datiDefault.associazione.laNostraFiamma;
+    const instagramUrl = d.associazione?.instagramUrl || d["associazione.instagramUrl"] || datiDefault.associazione.instagramUrl;
+    const sedeLegale = d.associazione?.sedeLegale || d["associazione.sedeLegale"] || datiDefault.associazione.sedeLegale;
 
-        const chiSiamoSottotitolo = d.chiSiamo?.sottotitolo || d["chiSiamo.sottotitolo"] || datiDefault.chiSiamo.sottotitolo;
-        const p1 = d.chiSiamo?.paragrafo1 || d["chiSiamo.paragrafo1"] || datiDefault.chiSiamo.paragrafo1;
-        const p2 = d.chiSiamo?.paragrafo2 || d["chiSiamo.paragrafo2"] || datiDefault.chiSiamo.paragrafo2;
-        const p3 = d.chiSiamo?.paragrafo3 || d["chiSiamo.paragrafo3"] || datiDefault.chiSiamo.paragrafo3;
-        const fotoAnimatori = d.chiSiamo?.fotoAnimatori || d["chiSiamo.fotoAnimatori"] || datiDefault.chiSiamo.fotoAnimatori;
+    const chiSiamoSottotitolo = d.chiSiamo?.sottotitolo || d["chiSiamo.sottotitolo"] || datiDefault.chiSiamo.sottotitolo;
+    const p1 = d.chiSiamo?.paragrafo1 || d["chiSiamo.paragrafo1"] || datiDefault.chiSiamo.paragrafo1;
+    const p2 = d.chiSiamo?.paragrafo2 || d["chiSiamo.paragrafo2"] || datiDefault.chiSiamo.paragrafo2;
+    const p3 = d.chiSiamo?.paragrafo3 || d["chiSiamo.paragrafo3"] || datiDefault.chiSiamo.paragrafo3;
+    
+    // PERCORSO FOTO ANIMATORI CORRETTO
+    const fotoAnimatoriGreza = d.chiSiamo?.fotoAnimatori || d["chiSiamo.fotoAnimatori"] || 'IMG_5125.jpg';
+    const fotoAnimatori = aggiustaPercorsoFoto(fotoAnimatoriGreza);
 
-        const percheTesto1 = d.chiSiamo?.percheHestia?.testo1 || d["chiSiamo.percheHestia.testo1"] || datiDefault.chiSiamo.percheHestia.testo1;
-        const percheTesto2 = d.chiSiamo?.percheHestia?.testo2 || d["chiSiamo.percheHestia.testo2"] || datiDefault.chiSiamo.percheHestia.testo2;
+    const percheTesto1 = d.chiSiamo?.percheHestia?.testo1 || d["chiSiamo.percheHestia.testo1"] || datiDefault.chiSiamo.percheHestia.testo1;
+    const percheTesto2 = d.chiSiamo?.percheHestia?.testo2 || d["chiSiamo.percheHestia.testo2"] || datiDefault.chiSiamo.percheHestia.testo2;
 
-        // Popola HTML
-        document.getElementById('header-tipologia').innerText = tipologia;
-        document.getElementById('hero-badge').innerText = tipologia;
-        document.getElementById('hero-submotto').innerText = submotto;
-        document.getElementById('hero-fiamma').innerText = laNostraFiamma;
-        document.getElementById('btn-instagram').href = instagramUrl;
-        document.getElementById('contatti-ig-link').href = instagramUrl;
-        document.getElementById('contatti-sede').innerText = sedeLegale;
+    // Popola HTML
+    document.getElementById('header-tipologia').innerText = tipologia;
+    document.getElementById('hero-badge').innerText = tipologia;
+    document.getElementById('hero-submotto').innerText = submotto;
+    document.getElementById('hero-fiamma').innerText = laNostraFiamma;
+    document.getElementById('btn-instagram').href = instagramUrl;
+    document.getElementById('contatti-ig-link').href = instagramUrl;
+    document.getElementById('contatti-sede').innerText = sedeLegale;
 
-        document.getElementById('chisiamo-sottotitolo').innerText = chiSiamoSottotitolo;
-        document.getElementById('chisiamo-p1').innerText = p1;
-        document.getElementById('chisiamo-p2').innerText = p2;
-        document.getElementById('chisiamo-p3').innerText = p3;
-        document.getElementById('perche-p1').innerText = percheTesto1;
-        document.getElementById('perche-p2').innerText = percheTesto2;
+    document.getElementById('chisiamo-sottotitolo').innerText = chiSiamoSottotitolo;
+    document.getElementById('chisiamo-p1').innerText = p1;
+    document.getElementById('chisiamo-p2').innerText = p2;
+    document.getElementById('chisiamo-p3').innerText = p3;
+    document.getElementById('perche-p1').innerText = percheTesto1;
+    document.getElementById('perche-p2').innerText = percheTesto2;
 
-        // Foto Animatori
-        const imgAnimatori = document.querySelector('#chi-siamo img');
-        if (imgAnimatori && fotoAnimatori) imgAnimatori.src = fotoAnimatori;
+    // Foto Animatori
+    const imgAnimatori = document.querySelector('#chi-siamo img');
+    if (imgAnimatori) {
+        imgAnimatori.src = fotoAnimatori;
+    }
 
-        // Render Attività con immagini
-        const container = document.getElementById('attivita-container');
-        const listaAttivita = d.attivita || datiDefault.attivita;
-        if (container && Array.isArray(listaAttivita)) {
-            container.innerHTML = '';
-            listaAttivita.forEach(att => {
-                const imgSrc = att.immagine || 'IMG_5125.jpg';
-                container.innerHTML += `
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col hover:shadow-md transition-shadow">
-                        <div class="h-48 overflow-hidden relative">
-                            <img src="${imgSrc}" alt="${att.titolo || ''}" class="w-full h-full object-cover">
-                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-hestia-red text-xs px-3 py-1 rounded-full font-bold shadow">
-                                ${att.badge || ''}
-                            </span>
+    // Render Attività con immagini corrette
+    const container = document.getElementById('attivita-container');
+    const listaAttivita = d.attivita || datiDefault.attivita;
+    if (container && Array.isArray(listaAttivita)) {
+        container.innerHTML = '';
+        listaAttivita.forEach(att => {
+            const imgSrc = aggiustaPercorsoFoto(att.immagine);
+            container.innerHTML += `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-amber-100 flex flex-col hover:shadow-md transition-shadow">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="${imgSrc}" alt="${att.titolo || ''}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='IMG_5125.jpg';">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-hestia-red text-xs px-3 py-1 rounded-full font-bold shadow">
+                            ${att.badge || ''}
+                        </span>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-hestia-dark mb-2">${att.titolo || ''}</h3>
+                            <p class="text-hestia-gray text-sm leading-relaxed">${att.descrizione || ''}</p>
                         </div>
-                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-hestia-dark mb-2">${att.titolo || ''}</h3>
-                                <p class="text-hestia-gray text-sm leading-relaxed">${att.descrizione || ''}</p>
-                            </div>
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium mt-auto">
-                                <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> ${att.tag || ''}</span>
-                                <span class="text-hestia-gray">${att.target || ''}</span>
-                            </div>
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-hestia-dark font-medium mt-auto">
+                            <span><i class="fa-solid fa-fire text-hestia-red mr-1"></i> ${att.tag || ''}</span>
+                            <span class="text-hestia-gray">${att.target || ''}</span>
                         </div>
                     </div>
-                `;
-            });
-        }
+                </div>
+            `;
+        });
     }
+}
 
     fetch('./dati.json')
         .then(res => {
